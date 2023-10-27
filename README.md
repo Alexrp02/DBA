@@ -1,5 +1,7 @@
 # DBA GRUPO 203
 ## TODO
+- [ ] Clase de Posición
+- [ ] Clase Agente
 - [ ] Leer mapa de archivo
 - [ ] Setup inicial del agente
 - [ ] Sensores para el Agente (4 visiones)
