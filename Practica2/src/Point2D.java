@@ -4,9 +4,21 @@
  */
 
 /**
- *
- * @author alexrp
+ * @option
  */
-public class Agent {
+public class Point2D {
+    public int i;
+    public int j;
     
+    public Point2D() {
+        i=0;
+        j=0;
+    }
+
+    public Point2D(int i, int j) {
+        this.i = i;
+        this.j = j;
+    }
 }
+
+
