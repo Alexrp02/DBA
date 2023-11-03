@@ -1,13 +1,18 @@
 # DBA GRUPO 203
 ## TODO
-- [ ] Clase de Posición
-- [ ] Clase Agente
-- [ ] Leer mapa de archivo
+- [X] Clase de Posición
+- [X] Clase Agente
+- [X] Leer mapa de archivo
 - [ ] Setup inicial del agente
 - [ ] Sensores para el Agente (4 visiones)
   - [ ] Sensores diagonales
-- [ ] Movimiento simple del agente sobre un mapa
+- [X] Movimiento simple del agente sobre un mapa
   - [ ] Guardado del camino del agente para subir pesos de casillas
   - [ ] Movimiento en diagonal
-- [ ] Mostrar el mapa por consola
-- [ ] 
+- [x] Mostrar el mapa por consola
+- [ ] Diseño de comportamientos
+  - [ ] Comportamiento de movimiento hacia la meta simple
+  - [ ] Comportamiento de movimiento que salga de curvas
+  - [ ] Comportamiento crear environment
+  - [ ] Comportamiento actualizar environment
+- [ ] Implementación de comportamientos
