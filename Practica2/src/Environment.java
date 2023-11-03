@@ -109,6 +109,16 @@ public class Environment {
         }
     }
     
+    public Boolean move(int direction) {
+        switch(direction) {
+            case(Direction.NORTH): return moveNorth();
+            case(Direction.EAST): return moveEast();
+            case(Direction.SOUTH): return moveSouth();
+            case(Direction.WEST): return moveWest();
+            default: return false;            
+        }
+    }
+    
     // Print data
     public void print() {
         String data = 

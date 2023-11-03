@@ -33,6 +33,9 @@ public class Main {
         
         environment.moveNorth();
         environment.print();
+        
+        environment.move(Direction.SOUTH);
+        environment.print();
     }
 }
 
