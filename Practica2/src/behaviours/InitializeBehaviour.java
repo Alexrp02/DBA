@@ -4,10 +4,19 @@
  */
 package behaviours;
 
+import jade.core.behaviours.OneShotBehaviour;
+
 /**
  *
  * @author alberto
  */
-public class InitializeBehaviour {
+public class InitializeBehaviour extends OneShotBehaviour{
+
+    @Override
+    public void action() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
     
 }
