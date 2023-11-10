@@ -43,7 +43,6 @@ public class Agent203 extends Agent{
         // ...
         
         this.addBehaviour(new PrintBehaviour());
-        System.out.println("Hola, estoy funcionando");
 //        this.addBehaviour(new UpdateSensorsBehaviour());
 //        this.addBehaviour(new EvaluateBehaviour());
 //        this.addBehaviour(new MovementBehaviour());

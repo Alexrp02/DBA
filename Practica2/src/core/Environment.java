@@ -34,6 +34,10 @@ public class Environment {
         
         this.sensors = new ArrayList<>(4);
         
+        for(int i = 0; i < 4; i++){
+            this.sensors.add(-2);
+        }
+        
         // To initialize sensors to the correct value
         this.see();
     }
@@ -46,6 +50,8 @@ public class Environment {
         this.sensors.set(Direction.SOUTH,this.map.get(this.currentPosition.i, this.currentPosition.j+1));
         this.sensors.set(Direction.EAST,this.map.get(this.currentPosition.i+1, this.currentPosition.j));
         this.sensors.set(Direction.WEST,this.map.get(this.currentPosition.i-1, this.currentPosition.j));
+        
+   
         
 //        this.northSensor = this.map.get(this.currentPosition.i, this.currentPosition.j-1);
 //        this.southSensor = this.map.get(this.currentPosition.i, this.currentPosition.j+1);
