@@ -27,7 +27,7 @@ public class EvaluateBehaviour extends Behaviour {
         for (Point2D possibleMove : Direction.possibleMoves) {
             // Comprobamos si la dirección a evaluar no nos lleva a un muro ni fuera del mapa
             int currentDirection = Direction.possibleMoves.indexOf(possibleMove) ;
-            if (((Agent203) this.myAgent).getEnvironment().sensors[currentDirection] == 0){
+            if (((Agent203) this.myAgent).getEnvironment().getSensors().get(currentDirection) == 0){
                 // Comprobamos si la evaluación de movernos es menor que la actual
                 double value = getDistance(currentPosition.add(possibleMove), goal) ;
                 if(value < bestValue){
