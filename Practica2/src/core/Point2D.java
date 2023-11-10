@@ -21,6 +21,18 @@ public class Point2D {
         this.i = i;
         this.j = j;
     }
+    
+    public Point2D substract (Point2D other) {
+        return new Point2D(i-other.i, j-other.j) ;
+    }
+    
+    public Point2D add (Point2D other) {
+        return new Point2D(i+other.i, j+other.j) ;
+    }
+
+    public boolean equals(Point2D other){
+        return (this.i == other.i && this.j == other.j);
+    }
 }
 
 
