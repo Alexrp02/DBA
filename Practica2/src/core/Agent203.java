@@ -30,7 +30,7 @@ public class Agent203 extends Agent{
         // Inicializar aquí el entorno
         
         //Meter esta inicializacion en el InitializeBehaviour
-        String mapPath = "./maps/mapWithoutObstacle.txt";
+        String mapPath = "./maps/mapWithVerticalWall.txt";
         Point2D initialPosition = new Point2D(0, 0);
         Point2D goalPosition = new Point2D(2, 2);
         
