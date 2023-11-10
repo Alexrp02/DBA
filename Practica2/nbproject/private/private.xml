@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/Environment.java</file>
-            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/Map.java</file>
-            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/Agent203.java</file>
-            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/Direction.java</file>
+            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/core/Agent203.java</file>
+            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/core/Map.java</file>
+            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/core/Direction.java</file>
+            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/behaviours/InitializeBehaviour.java</file>
+            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/behaviours/UpdateSensorsBehaviour.java</file>
+            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/core/Main.java</file>
+            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/core/Environment.java</file>
+            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/behaviours/EvaluateBehaviour.java</file>
+            <file>file:/home/alberto/Escritorio/Cuarto/DBA/DBA/Practica2/src/behaviours/PrintBehaviour.java</file>
         </group>
     </open-files>
 </project-private>
