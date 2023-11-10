@@ -63,7 +63,17 @@ public class MovementBehaviour extends Behaviour {
 
     @Override
     public boolean done() {
-        return ((Agent203)this.myAgent).getEnvironment().getCurrentPosition().equals(((Agent203)this.myAgent).getEnvironment().getGoalPosition());
+        
+        boolean end =
+            ((Agent203)this.myAgent).getEnvironment().getCurrentPosition().equals(
+                ((Agent203)this.myAgent).getEnvironment().getGoalPosition()
+            );
+        
+        if(end)
+            ((Agent203)this.myAgent).doDelete();
+        
+        
+        return end;
     }
     
     
