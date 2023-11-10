@@ -18,13 +18,26 @@ public class EvaluateBehaviour extends Behaviour {
     Point2D goal = ((Agent203) this.myAgent).getEnvironment().getGoalPosition();
     Point2D currentPosition = ((Agent203) this.myAgent).getEnvironment().getCurrentPosition();
     int nextDirection = 0;
-    double bestValue = 0;
+    // Inicializamos al valor más alto posible para double
+    double bestValue = Double.MAX_VALUE;
 
     @Override
     public void action() {
         System.out.println("Evaluating...");
         for (Point2D possibleMove : Direction.possibleMoves) {
-            Direction.possibleMoves.indexOf(possibleMove);
+            // Comprobamos si la dirección a evaluar no nos lleva a un muro ni fuera del mapa
+            int currentDirection = Direction.possibleMoves.indexOf(possibleMove) ;
+            if (((Agent203) this.myAgent).getEnvironment().sensors[currentDirection] == 0){
+                // Comprobamos si la evaluación de movernos es menor que la actual
+                double value = getDistance(currentPosition.add(possibleMove), goal) ;
+                if(value < bestValue){
+                    // Si es menor, actualizamos el mejor
+                    nextDirection = currentDirection;
+                    bestValue = value ;
+                }
+            }
+                        
+
         }
 
     }
