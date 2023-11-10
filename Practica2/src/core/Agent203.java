@@ -19,7 +19,7 @@ public class Agent203 extends Agent{
     
     // Entorno
     private Environment environment;
-    private Direction nextDirection;
+    private int nextDirection;
     private List<Point2D> agentPath;
     
     // Memoria del agente
@@ -52,6 +52,10 @@ public class Agent203 extends Agent{
     
     public Environment getEnvironment(){
         return environment; 
+    }
+    
+    public void setNextDirection(int next){
+        this.nextDirection = next ;
     }
     
 }
