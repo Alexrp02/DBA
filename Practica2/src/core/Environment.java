@@ -46,10 +46,10 @@ public class Environment {
     public void see() {
         
         // Logic here
-        this.sensors.set(Direction.NORTH, this.map.get(this.currentPosition.i, this.currentPosition.j-1));
-        this.sensors.set(Direction.SOUTH,this.map.get(this.currentPosition.i, this.currentPosition.j+1));
-        this.sensors.set(Direction.EAST,this.map.get(this.currentPosition.i+1, this.currentPosition.j));
-        this.sensors.set(Direction.WEST,this.map.get(this.currentPosition.i-1, this.currentPosition.j));
+        this.sensors.set(Direction.NORTH, this.map.get(this.currentPosition.i-1, this.currentPosition.j));
+        this.sensors.set(Direction.SOUTH,this.map.get(this.currentPosition.i+1, this.currentPosition.j));
+        this.sensors.set(Direction.EAST,this.map.get(this.currentPosition.i, this.currentPosition.j+1));
+        this.sensors.set(Direction.WEST,this.map.get(this.currentPosition.i, this.currentPosition.j-1));
         
    
         

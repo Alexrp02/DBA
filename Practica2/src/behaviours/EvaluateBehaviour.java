@@ -15,14 +15,16 @@ import jade.core.behaviours.Behaviour;
  */
 public class EvaluateBehaviour extends Behaviour {
 
-    Point2D goal = ((Agent203) this.myAgent).getEnvironment().getGoalPosition();
-    Point2D currentPosition = ((Agent203) this.myAgent).getEnvironment().getCurrentPosition();
+    Point2D goal ;
+    Point2D currentPosition ;
     int nextDirection = 0;
     // Inicializamos al valor más alto posible para double
     double bestValue = Double.MAX_VALUE;
 
     @Override
     public void action() {
+        goal = ((Agent203) this.myAgent).getEnvironment().getGoalPosition();
+        currentPosition = ((Agent203) this.myAgent).getEnvironment().getCurrentPosition();
         System.out.println("Evaluating...");
         for (Point2D possibleMove : Direction.possibleMoves) {
             // Comprobamos si la dirección a evaluar no nos lleva a un muro ni fuera del mapa
@@ -39,12 +41,14 @@ public class EvaluateBehaviour extends Behaviour {
                         
 
         }
+        
+        ((Agent203) this.myAgent).setNextDirection(nextDirection);
 
     }
 
     @Override
     public boolean done() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return false ;
     }
 
     private double getDistance(Point2D start, Point2D end) {

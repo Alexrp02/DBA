@@ -11,6 +11,8 @@ import core.Agent203;
 import jade.core.behaviours.Behaviour;
 
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -29,15 +31,19 @@ public class MovementBehaviour extends Behaviour {
     @Override
     public void action() {
         
-        boolean debug = true;
+        boolean debug = false;
         
         if(!debug){
             
             //Obtenemos la dirección en la que nos movemos
             int nextDirection = ((Agent203)this.myAgent).getNextDirection();
             
-            //Se la pasamos al entorno y nos movemos
-            
+            try {
+                //Se la pasamos al entorno y nos movemos despues de esperar 2 segundos
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MovementBehaviour.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if(!((Agent203)this.myAgent).getEnvironment().move(nextDirection))
                 System.out.println("No puedo moverme");
         }else{
@@ -63,17 +69,7 @@ public class MovementBehaviour extends Behaviour {
 
     @Override
     public boolean done() {
-        
-        boolean end =
-            ((Agent203)this.myAgent).getEnvironment().getCurrentPosition().equals(
-                ((Agent203)this.myAgent).getEnvironment().getGoalPosition()
-            );
-        
-        if(end)
-            ((Agent203)this.myAgent).doDelete();
-        
-        
-        return end;
+        return false ;
     }
     
     

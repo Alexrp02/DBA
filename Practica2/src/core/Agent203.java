@@ -42,8 +42,10 @@ public class Agent203 extends Agent{
         // Definir comportamientos
         // ...
         
+        
         this.addBehaviour(new PrintBehaviour());
-//        this.addBehaviour(new UpdateSensorsBehaviour());
+        this.addBehaviour(new checkGoalBehaviour()) ;
+        this.addBehaviour(new UpdateSensorsBehaviour());
         this.addBehaviour(new EvaluateBehaviour());
         this.addBehaviour(new MovementBehaviour());
 
