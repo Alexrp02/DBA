@@ -45,7 +45,7 @@ public class Agent203 extends Agent{
         this.addBehaviour(new PrintBehaviour());
 //        this.addBehaviour(new UpdateSensorsBehaviour());
 //        this.addBehaviour(new EvaluateBehaviour());
-//        this.addBehaviour(new MovementBehaviour());
+        this.addBehaviour(new MovementBehaviour());
 
     }
     
@@ -55,6 +55,10 @@ public class Agent203 extends Agent{
     
     public void setNextDirection(int next){
         this.nextDirection = next ;
+    }
+    
+    public int getNextDirection(){
+        return this.nextDirection;
     }
     
 }
