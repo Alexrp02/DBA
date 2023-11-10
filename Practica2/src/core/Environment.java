@@ -1,5 +1,7 @@
 package core;
 
+import java.util.ArrayList;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -14,11 +16,10 @@ public class Environment {
     // World
     private Map map;
     
+    
     // Sensors
-    private int northSensor;
-    private int eastSensor;
-    private int southSensor;
-    private int westSensor;
+    private ArrayList<Integer> sensors;
+    
     
     // Positions
     private Point2D currentPosition;
@@ -31,6 +32,8 @@ public class Environment {
         this.currentPosition = initialPosition;
         this.goalPosition = goalPosition;
         
+        this.sensors = new ArrayList<>(4);
+        
         // To initialize sensors to the correct value
         this.see();
     }
@@ -39,27 +42,37 @@ public class Environment {
     public void see() {
         
         // Logic here
-        this.northSensor = this.map.get(this.currentPosition.i, this.currentPosition.j-1);
-        this.southSensor = this.map.get(this.currentPosition.i, this.currentPosition.j+1);
-        this.eastSensor = this.map.get(this.currentPosition.i+1, this.currentPosition.j);
-        this.westSensor = this.map.get(this.currentPosition.i-1, this.currentPosition.j);
+        this.sensors.set(Direction.NORTH, this.map.get(this.currentPosition.i, this.currentPosition.j-1));
+        this.sensors.set(Direction.SOUTH,this.map.get(this.currentPosition.i, this.currentPosition.j+1));
+        this.sensors.set(Direction.EAST,this.map.get(this.currentPosition.i+1, this.currentPosition.j));
+        this.sensors.set(Direction.WEST,this.map.get(this.currentPosition.i-1, this.currentPosition.j));
+        
+//        this.northSensor = this.map.get(this.currentPosition.i, this.currentPosition.j-1);
+//        this.southSensor = this.map.get(this.currentPosition.i, this.currentPosition.j+1);
+//        this.eastSensor = this.map.get(this.currentPosition.i+1, this.currentPosition.j);
+//        this.westSensor = this.map.get(this.currentPosition.i-1, this.currentPosition.j);
 
     }
 
+    public ArrayList<Integer> getSensors() {
+        return sensors;
+    }
+
+    
     public int getNorthSensor() {
-        return northSensor;
+        return this.sensors.get(Direction.NORTH);
     }
 
     public int getEastSensor() {
-        return eastSensor;
+        return this.sensors.get(Direction.EAST);
     }
 
     public int getSouthSensor() {
-        return southSensor;
+        return this.sensors.get(Direction.SOUTH);
     }
 
     public int getWestSensor() {
-        return westSensor;
+        return this.sensors.get(Direction.WEST);
     }
 
     public Point2D getCurrentPosition() {
