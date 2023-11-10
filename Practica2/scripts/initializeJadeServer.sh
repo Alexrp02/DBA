@@ -1,0 +1,1 @@
+java -cp ./dist/Practica2.jar jade.Boot -name 203_server -gui
