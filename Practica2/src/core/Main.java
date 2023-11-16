@@ -1,4 +1,5 @@
 package core;
+
 // Ejemplo de ejecución del agente desde el main (ver guión P1)
 import jade.core.Profile;
 import jade.core.ProfileImpl;
@@ -10,10 +11,6 @@ import jade.wrapper.StaleProxyException;
 // Antes de ejecutar el programa, lanzar otro proceso:
 // java -cp jade.jar jade.Boot -name dba_server -gui
 
-/**
- *
- * @author carlosqp
- */
 
 public class Main {
     public static void main(String[] args) throws StaleProxyException {
