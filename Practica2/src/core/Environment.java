@@ -38,9 +38,9 @@ public class Environment {
         this.currentPosition = initialPosition;
         this.goalPosition = goalPosition;
         
-        this.sensors = new ArrayList<>(4);
+        this.sensors = new ArrayList<>(8);
         
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 8; i++){
             this.sensors.add(-2);
         }
         
@@ -57,6 +57,9 @@ public class Environment {
         this.sensors.set(Direction.EAST,this.map.get(this.currentPosition.i, this.currentPosition.j+1));
         this.sensors.set(Direction.WEST,this.map.get(this.currentPosition.i, this.currentPosition.j-1));
         
+        for(int i=0 ; i<Direction.possibleMoves.size() ; i++) {
+            this.sensors.set(i, this.map.get(currentPosition.add(Direction.possibleMoves.get(i)))) ;
+        }
    
         
 //        this.northSensor = this.map.get(this.currentPosition.i, this.currentPosition.j-1);
@@ -137,13 +140,19 @@ public class Environment {
     }
     
     public Boolean move(int direction) {
-        switch(direction) {
-            case(Direction.NORTH): return moveNorth();
-            case(Direction.EAST): return moveEast();
-            case(Direction.SOUTH): return moveSouth();
-            case(Direction.WEST): return moveWest();
-            default: return false;            
+//        switch(direction) {
+//            case(Direction.NORTH): return moveNorth();
+//            case(Direction.EAST): return moveEast();
+//            case(Direction.SOUTH): return moveSouth();
+//            case(Direction.WEST): return moveWest();
+//            default: return false;            
+//        }
+        Point2D newPoint = currentPosition.add(Direction.possibleMoves.get(direction)) ;
+        if(this.map.get(newPoint.i, newPoint.j) == 0) {
+            currentPosition = newPoint ;
+            return true ;
         }
+        return false;
     }
     
     // Print data

@@ -27,7 +27,7 @@ public class checkGoalBehaviour extends Behaviour {
 
         if (end) {
             ((Agent203) this.myAgent).doDelete();
-            System.out.println("The agent is in the goal!!");
+            System.out.println("The agent is in the goal after " + ((Agent203) this.myAgent).steps + " steps!!");
         }
 
         return end;

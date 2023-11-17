@@ -29,8 +29,11 @@ public class Agent203 extends Agent{
     private List<Point2D> agentPath;
     
     // Memoria del agente
-    public Map<Point2D, Integer> memory;
-    public List<Integer> sensorsWeight;
+    public Map<Point2D, Double> memory;
+    public List<Double> sensorsWeight;
+    
+    //Variable para los pasos de ejecución
+    public int steps = 0;
     
     @Override
     protected void setup() {
@@ -44,29 +47,30 @@ public class Agent203 extends Agent{
 //        Point2D initialPosition = new Point2D(5, 6);
 //        Point2D goalPosition = new Point2D(8, 0);
         
-//        String mapPath = "./maps/mapWithComplexObstacle3_1.txt";
-//        Point2D initialPosition = new Point2D(8, 8);
-//        Point2D goalPosition = new Point2D(8, 0);
+        String mapPath = "./maps/mapaGrande.txt";
+        Point2D initialPosition = new Point2D(0, 0);
+        Point2D goalPosition = new Point2D(10, 7);
 
-        String mapPath = "./maps/mapMuerte.txt";
-        Point2D initialPosition = new Point2D(9, 9);
-        Point2D goalPosition = new Point2D(9, 4);
+//        String mapPath = "./maps/mapMuerte.txt";
+//        Point2D initialPosition = new Point2D(9, 9);
+//        Point2D goalPosition = new Point2D(9, 4);
         
         
         agentPath = new LinkedList<>();
         
+        
         // initialization of sensorsWeight
-        sensorsWeight = new ArrayList<>(4);
+        sensorsWeight = new ArrayList<>(8);
         //sensorsWeight.addAll(Arrays.asList(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
-        for (int i = 0; i < 4; i++) {
-            sensorsWeight.add(Integer.MAX_VALUE);
+        for (int i = 0; i < 8; i++) {
+            sensorsWeight.add(Double.MAX_VALUE);
         }
         
         this.environment = new Environment(mapPath, initialPosition, goalPosition);
 
         memory = new HashMap<>();
         // Establecemos el minimo valor a la posicion de goal para que siempre se escoja este movimiento
-        memory.put(goalPosition, -100);
+        memory.put(goalPosition, -100.0);
 
         // Definir comportamientos
         // ...

@@ -17,20 +17,20 @@ public class EvaluateBehaviourByWeight extends Behaviour {
 
     int nextDirection = 0;
     // Inicializamos al valor más alto posible para double
-    int bestValue = Integer.MAX_VALUE;
+    double bestValue = Double.MAX_VALUE;
 
     @Override
     public void action() {
         
         // Restablece los valores
         nextDirection = 0;
-        bestValue = Integer.MAX_VALUE;
+        bestValue = Double.MAX_VALUE;
         
         // Obtiene los pesos de las casillas colindantes
         // Trata memory para obtener los pesos de las posiciones de los sensores
         
         for(int i=0; i< ((Agent203) myAgent).sensorsWeight.size(); ++i) {
-            int value = ((Agent203) myAgent).sensorsWeight.get(i);
+            double value = ((Agent203) myAgent).sensorsWeight.get(i);
 
             if(value < bestValue) {
                 nextDirection = i;
