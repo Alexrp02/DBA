@@ -6,7 +6,7 @@ import java.awt.*;
 import core.Point2D;
 
 public class MapVisualization extends JFrame {
-
+    private int CELL_SIZE = 20 ;
     private Map worldMap;
     private final Point2D goalPosition;
     private Point2D agentPosition;
@@ -18,7 +18,7 @@ public class MapVisualization extends JFrame {
         this.agentPosition = agentPosition;
 
         setTitle("Map Visualization");
-        setSize(400, 400);
+        setSize(CELL_SIZE*worldMap.getRows(), CELL_SIZE*worldMap.getCols());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -41,7 +41,7 @@ public class MapVisualization extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            int cellSize = 40; // Adjust this based on your preference
+            int cellSize = CELL_SIZE; // Adjust this based on your preference
 
             for (int i = 0; i < worldMap.getRows(); i++) {
                 for (int j = 0; j < worldMap.getCols(); j++) {

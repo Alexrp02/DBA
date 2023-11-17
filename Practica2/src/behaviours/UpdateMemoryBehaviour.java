@@ -13,73 +13,77 @@ import core.Point2D;
  *
  * @author carlosqp
  */
-public class UpdateMemoryBehaviour extends CyclicBehaviour{
-    
-    private static final int PENALIZACION_POR_PASO = 5;
-    private static final int PENALIZACION_POR_MURO = Integer.MAX_VALUE;
-    
+public class UpdateMemoryBehaviour extends CyclicBehaviour {
+
+    private static final double PENALIZACION_POR_PASO = 8;
+    private static final double PENALIZACION_POR_MURO = Double.MAX_VALUE;
+
     Point2D currentPosition;
     Point2D goalPosition;
-    
-    public int manhattanDistance(Point2D start, Point2D end) {
+
+    public double manhattanDistance(Point2D start, Point2D end) {
         Point2D substract = start.substract(end);
-        int result = Math.abs(substract.i) + Math.abs(substract.j);
+        double result = Math.abs(substract.i) + Math.abs(substract.j);
         return result;
     }
-    
+
+    public double euclideanDistance(Point2D point1, Point2D point2) {
+        double deltaX = point2.i - point1.i;
+        double deltaY = point2.j - point1.j;
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
+
     @Override
     public void action() {
-        
+
         // Actualiza los sensores, y las variables que dependen de ellos
         updateSensors();
-        
+
         // Actualizar aquí la memoria
         updateMemory();
 
         /// Actualizamos el peso de la casilla en la que estamos
         updateSensorsWeight();
     }
-    
+
     private void updateSensors() {
         ((Agent203) myAgent).getEnvironment().see();
         goalPosition = ((Agent203) this.myAgent).getEnvironment().getGoalPosition();
         Point2D ref = ((Agent203) this.myAgent).getEnvironment().getCurrentPosition();
         currentPosition = new Point2D(ref.i, ref.j);
     }
-    
-   private void updateMemory() {
+
+    private void updateMemory() {
         ///////////////////////////////////////////////////////////////////////
         /// Actualizamos el peso de la casilla en la que estamos (le sumamos 5)
         // System.out.println("Stop me here");
-        
+
         // Si no contiene esa casilla, la agrega (sólo ocurrirá en la primera iteración)
-        if(!((Agent203) myAgent).memory.containsKey(currentPosition)) {
-            ((Agent203) myAgent).memory.put(currentPosition, manhattanDistance(currentPosition, goalPosition));
+        if (!((Agent203) myAgent).memory.containsKey(currentPosition)) {
+            ((Agent203) myAgent).memory.put(currentPosition, euclideanDistance(currentPosition, goalPosition));
         }
-        
+
         // Si la casilla actual está en la memoria (debería estarlo), actualiza su peso sumándole 5
         ((Agent203) myAgent).memory.put(currentPosition, ((Agent203) myAgent).memory.get(currentPosition) + PENALIZACION_POR_PASO);
         // System.out.println("UpdateSensorsBehaviour: Actualizado el punto donde estoy... " + ((Agent203) myAgent).memory.get(currentPosition));
 
         ///////////////////////////////////////////////////////////////////////
         /// Actualizamos el peso de las casillas que observa el agente por sensores (sólo si no están)
-        
-       for (Point2D possibleMove : Direction.possibleMoves) {
-           
+        for (Point2D possibleMove : Direction.possibleMoves) {
+
             // Obtiene el punto del mundo
             Point2D worldPoint = currentPosition.add(possibleMove);
-            
+
             // Obtiene el indice de la direccion
             int sensorIndex = Direction.possibleMoves.indexOf(possibleMove);
 
             // Comprueba si el punto está ya en la memoria. 
             //  - Si el punto ya existe en la memoria, no lo procesa.
             //  - Si el punto está en la memoria, lo procesa.
+            if (!((Agent203) myAgent).memory.containsKey(worldPoint)) {
 
-            if(!((Agent203) myAgent).memory.containsKey(worldPoint)) {
-                
                 int sensorValue = ((Agent203) myAgent).getEnvironment().getSensors().get(sensorIndex);
-                
+
                 switch (sensorValue) {
                     // case -2 -> System.out.println("UpdateSensorsBehaviour: Fuera del mapa");
                     case -1 -> {
@@ -88,7 +92,7 @@ public class UpdateMemoryBehaviour extends CyclicBehaviour{
                     }
                     case 0 -> {
                         // System.out.println("UpdateSensorsBehaviour: Añadiendo nuevo punto valido");
-                        ((Agent203) myAgent).memory.put(worldPoint, manhattanDistance(worldPoint, goalPosition));
+                        ((Agent203) myAgent).memory.put(worldPoint, euclideanDistance(worldPoint, goalPosition));
                     }
                     default -> {
                     }
@@ -98,37 +102,59 @@ public class UpdateMemoryBehaviour extends CyclicBehaviour{
                 // En caso de que sea un punto al que se puede mover, se añade a la memoria con el valor de la distancia manhattan
             }
         }
-       
-       // System.out.println("UpdateSensorsBehaviour: memory actualizada");
-   }
-   
-   // Debe ser llamada después de updateMemory puesto que depende de memory actualizada
-   private void updateSensorsWeight() {
-       
-       for (Point2D possibleMove : Direction.possibleMoves) {
-           
+
+        // System.out.println("UpdateSensorsBehaviour: memory actualizada");
+    }
+
+    // Debe ser llamada después de updateMemory puesto que depende de memory actualizada
+    private void updateSensorsWeight() {
+
+        for (Point2D possibleMove : Direction.possibleMoves) {
+
             // Obtiene el punto del mundo
             Point2D worldPoint = currentPosition.add(possibleMove);
-            
+
             // Obtiene el indice de la direccion
             int sensorIndex = Direction.possibleMoves.indexOf(possibleMove);
-            
+
             // Obtiene el valor del sensor
             int sensorValue = ((Agent203) myAgent).getEnvironment().getSensors().get(sensorIndex);
-            
+
             // Actualiza el valor de sensorWeight(sensorIndex) con su valor de la memoria
             // En caso de que el punto no esté en el mapa (sensorValue==-2) entonces le da el maximo valor
-            int sensorWeight;
-            if(sensorValue==-2) {
+            double sensorWeight;
+            if (sensorValue == -2) {
                 sensorWeight = PENALIZACION_POR_MURO;
             } else {
-                sensorWeight = ((Agent203) myAgent).memory.get(worldPoint);
+                boolean canMove = true;
+                if (sensorIndex == 4) {
+                    if (((Agent203) myAgent).getEnvironment().getSensors().get(0) == -1 && ((Agent203) myAgent).getEnvironment().getSensors().get(3) == -1){
+                        canMove = false ;
+                    }
+                }else if (sensorIndex == 5) {
+                    if (((Agent203) myAgent).getEnvironment().getSensors().get(0) == -1 && ((Agent203) myAgent).getEnvironment().getSensors().get(1) == -1){
+                        canMove = false ;
+                    }
+                }else if (sensorIndex == 6) {
+                    if (((Agent203) myAgent).getEnvironment().getSensors().get(1) == -1 && ((Agent203) myAgent).getEnvironment().getSensors().get(2) == -1){
+                        canMove = false ;
+                    }
+                }else if (sensorIndex == 7) {
+                    if (((Agent203) myAgent).getEnvironment().getSensors().get(2) == -1 && ((Agent203) myAgent).getEnvironment().getSensors().get(3) == -1){
+                        canMove = false ;
+                    }
+                }
+                if (canMove) {
+                    sensorWeight = ((Agent203) myAgent).memory.get(worldPoint);
+                }else{
+                    sensorWeight = PENALIZACION_POR_MURO ;
+                }
                 // System.out.println("Direction: " + sensorIndex + ", Weight: " + sensorWeight);
             }
-            
+
             ((Agent203) myAgent).sensorsWeight.set(sensorIndex, sensorWeight);
-       }
-       
-       // System.out.println("UpdateSensorsBehaviour: sensorsWeight actualizada");
-   }
+        }
+
+        // System.out.println("UpdateSensorsBehaviour: sensorsWeight actualizada");
+    }
 }

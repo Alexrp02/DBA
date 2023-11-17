@@ -40,12 +40,14 @@ public class MovementBehaviour extends Behaviour {
             
             try {
                 //Se la pasamos al entorno y nos movemos despues de esperar 2 segundos
-                Thread.sleep(500);
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 Logger.getLogger(MovementBehaviour.class.getName()).log(Level.SEVERE, null, ex);
             }
             if(!((Agent203)this.myAgent).getEnvironment().move(nextDirection))
                 System.out.println("No puedo moverme");
+            else
+                ((Agent203) myAgent).steps ++ ;
         }else{
             //Se pide al usuario que se inserte la dirección a la que se mueve
             System.out.println("Introduzca la dirección del movimiento: ");

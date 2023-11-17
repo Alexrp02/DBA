@@ -15,6 +15,7 @@ public class PrintBehaviour extends CyclicBehaviour{
     @Override
     public void action() {
         ((Agent203) this.myAgent).getEnvironment().print();
+        System.out.println("Steps: " + ((Agent203) this.myAgent).steps);
     }
     
 }
