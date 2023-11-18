@@ -47,9 +47,9 @@ public class Agent203 extends Agent{
 //        Point2D initialPosition = new Point2D(5, 6);
 //        Point2D goalPosition = new Point2D(8, 0);
         
-        String mapPath = "./maps/mapaGrande.txt";
+        String mapPath = "./maps/mapMuerte.txt";
         Point2D initialPosition = new Point2D(0, 0);
-        Point2D goalPosition = new Point2D(10, 7);
+        Point2D goalPosition = new Point2D(9, 4);
 
 //        String mapPath = "./maps/mapMuerte.txt";
 //        Point2D initialPosition = new Point2D(9, 9);
@@ -66,7 +66,7 @@ public class Agent203 extends Agent{
             sensorsWeight.add(Double.MAX_VALUE);
         }
         
-        this.environment = new Environment(mapPath, initialPosition, goalPosition);
+        this.environment = new Environment(mapPath, initialPosition, goalPosition, agentPath);
 
         memory = new HashMap<>();
         // Establecemos el minimo valor a la posicion de goal para que siempre se escoja este movimiento
@@ -95,5 +95,9 @@ public class Agent203 extends Agent{
     public int getNextDirection(){
         return this.nextDirection;
     }
+    
+    public List<Point2D> getAgentPath(){
+        return this.agentPath;
+    };
     
 }

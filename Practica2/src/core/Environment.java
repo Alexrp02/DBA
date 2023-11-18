@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.List;
 import ui.MapVisualization;
 
 /*
@@ -29,11 +30,14 @@ public class Environment {
     private Point2D currentPosition;
     private Point2D goalPosition;
     
-    public Environment(String path, Point2D initialPosition, Point2D goalPosition) {
+    //agentPath
+    private List<Point2D> agentPath;
+    
+    public Environment(String path, Point2D initialPosition, Point2D goalPosition, List<Point2D> agentPath) {
         
         this.map = new Map(path);
-        
-        ui = new MapVisualization(map, goalPosition, currentPosition) ;
+        this.agentPath = agentPath;
+        ui = new MapVisualization(map, goalPosition, currentPosition, this.agentPath) ;
         
         this.currentPosition = initialPosition;
         this.goalPosition = goalPosition;
@@ -149,6 +153,7 @@ public class Environment {
 //        }
         Point2D newPoint = currentPosition.add(Direction.possibleMoves.get(direction)) ;
         if(this.map.get(newPoint.i, newPoint.j) == 0) {
+            agentPath.add(currentPosition);
             currentPosition = newPoint ;
             return true ;
         }

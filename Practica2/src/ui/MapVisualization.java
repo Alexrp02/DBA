@@ -1,5 +1,5 @@
 package ui;
-
+import java.util.List;
 import core.Map;
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +11,13 @@ public class MapVisualization extends JFrame {
     private final Point2D goalPosition;
     private Point2D agentPosition;
     private MapPanel mapPanel;
+    private List<Point2D> agentPath;
 
-    public MapVisualization(Map worldMap, Point2D goalPosition, Point2D agentPosition) {
+    public MapVisualization(Map worldMap, Point2D goalPosition, Point2D agentPosition, List<Point2D> agentPath) {
         this.worldMap = worldMap;
         this.goalPosition = goalPosition;
         this.agentPosition = agentPosition;
+        this.agentPath = agentPath;
 
         setTitle("Map Visualization");
         setSize(CELL_SIZE*worldMap.getRows(), CELL_SIZE*worldMap.getCols());
@@ -59,6 +61,17 @@ public class MapVisualization extends JFrame {
 
             g.setColor(Color.RED); // Agent position
             g.fillOval(agentPosition.j * cellSize, agentPosition.i * cellSize, cellSize, cellSize);
+            
+            //Ruta del agente
+            if (agentPath != null) {
+                g.setColor(Color.YELLOW); // Color amarillo para la ruta del agente
+                
+                
+                for (Point2D pathPoint : agentPath) {
+                    g.fillOval(pathPoint.j * cellSize, pathPoint.i * cellSize, cellSize/2, cellSize/2);
+                }
+                
+            }
         }
     }
 }
