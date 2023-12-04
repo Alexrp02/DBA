@@ -34,9 +34,24 @@ public class Main {
 
         String agentName = "agent203";
         String className = Agent203.class.getCanonicalName();
+        
+        String agentReceiverName = "agentReceiver";
+        String classReceiverName = Rudolf.class.getCanonicalName();
                 
+        
+        
+        try {
+        //AgentController asc = cc.createNewAgent(agentSenderName, classSenderName, null);
+        AgentController arc = cc.createNewAgent(agentReceiverName, classReceiverName, null);
         AgentController ac = cc.createNewAgent(agentName, className, null);
         
-        ac.start();        
+        ac.start(); 
+
+        //asc.start();
+        arc.start();
+        } catch (StaleProxyException e) {
+            e.printStackTrace(); // Imprime la traza de la excepción para diagnóstico
+            // También puedes manejar la excepción de otras formas según tus necesidades
+        }
     }
 }

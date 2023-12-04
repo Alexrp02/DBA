@@ -19,15 +19,16 @@ public class checkGoalBehaviour extends Behaviour {
 
     @Override
     public boolean done() {
-
+        System.out.println("Comprobando goal----------------------------");
         boolean end
                 = ((Agent203) this.myAgent).getEnvironment().getCurrentPosition().equals(
                         ((Agent203) this.myAgent).getEnvironment().getGoalPosition()
                 );
 
         if (end) {
-            ((Agent203) this.myAgent).doDelete();
-            System.out.println("The agent is in the goal after " + ((Agent203) this.myAgent).steps + " steps!!");
+            ((Agent203)this.myAgent).finishSearchingReindeer();
+            ((Agent203)this.myAgent).addSendBehaviour();
+            
         }
 
         return end;

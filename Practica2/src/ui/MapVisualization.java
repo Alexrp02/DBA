@@ -8,14 +8,13 @@ import core.Point2D;
 public class MapVisualization extends JFrame {
     private int CELL_SIZE = 20 ;
     private Map worldMap;
-    private final Point2D goalPosition;
+    private  Point2D goalPosition;
     private Point2D agentPosition;
     private MapPanel mapPanel;
     private List<Point2D> agentPath;
 
-    public MapVisualization(Map worldMap, Point2D goalPosition, Point2D agentPosition, List<Point2D> agentPath) {
+    public MapVisualization(Map worldMap, Point2D agentPosition, List<Point2D> agentPath) {
         this.worldMap = worldMap;
-        this.goalPosition = goalPosition;
         this.agentPosition = agentPosition;
         this.agentPath = agentPath;
 
@@ -28,6 +27,10 @@ public class MapVisualization extends JFrame {
         add(mapPanel);
 
         setVisible(true);
+    }
+    
+    public void setGoalPosition(Point2D goalPosition){
+        this.goalPosition = goalPosition;
     }
 
     // Add this method to update the visualization

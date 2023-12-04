@@ -40,7 +40,7 @@ public class MovementBehaviour extends Behaviour {
             
             try {
                 //Se la pasamos al entorno y nos movemos despues de esperar 2 segundos
-                Thread.sleep(1000);
+                Thread.sleep(300);
             } catch (InterruptedException ex) {
                 Logger.getLogger(MovementBehaviour.class.getName()).log(Level.SEVERE, null, ex);
             }

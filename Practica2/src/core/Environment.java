@@ -33,14 +33,15 @@ public class Environment {
     //agentPath
     private List<Point2D> agentPath;
     
-    public Environment(String path, Point2D initialPosition, Point2D goalPosition, List<Point2D> agentPath) {
+    public Environment(String path, Point2D initialPosition, List<Point2D> agentPath) {
         
         this.map = new Map(path);
         this.agentPath = agentPath;
-        ui = new MapVisualization(map, goalPosition, currentPosition, this.agentPath) ;
         
         this.currentPosition = initialPosition;
-        this.goalPosition = goalPosition;
+        ui = new MapVisualization(map, currentPosition, this.agentPath) ;
+        
+        
         
         this.sensors = new ArrayList<>(8);
         
@@ -100,6 +101,11 @@ public class Environment {
 
     public Point2D getGoalPosition() {
         return goalPosition;
+    }
+    
+    public void setGoalPosition(Point2D goalPosition){
+        this.goalPosition = goalPosition;
+        this.ui.setGoalPosition(goalPosition);
     }
     
     // Movement functions

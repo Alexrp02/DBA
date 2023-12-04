@@ -10,6 +10,7 @@ import jade.core.Agent;
 import java.util.LinkedList;
 import java.util.List;
 import behaviours.*;
+import jade.core.behaviours.Behaviour;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -35,52 +36,53 @@ public class Agent203 extends Agent{
     //Variable para los pasos de ejecución
     public int steps = 0;
     
+    //Comportamiento para el envio de mensajes
+    private sendMessageBehaviour sendBehaviour;
+    
+    //Comportamientos para la búsqueda de renos
+    private PrintBehaviour printBehaviour;
+    private checkGoalBehaviour checkGoalBehaviour ;
+    private UpdateMemoryBehaviour updateMemoryBehaviour;
+    private EvaluateBehaviourByWeight evaluateByWeight;
+    private MovementBehaviour movementBehaviour;
+    
+        
+    String mapPath = "./maps/mapa30.txt";
+    
     @Override
     protected void setup() {
         // Inicializar aquí el entorno
         
 //        String mapPath = "./maps/mapWithVerticalWall.txt";
-//        Point2D initialPosition = new Point2D(0, 0);
+         Point2D initialPosition = new Point2D(0, 0);
 //        Point2D goalPosition = new Point2D(5, 5);
         
 //        String mapPath = "./maps/mapWithComplexObstacle1.txt";
 //        Point2D initialPosition = new Point2D(5, 6);
 //        Point2D goalPosition = new Point2D(8, 0);
         
-        String mapPath = "./maps/mapMuerte.txt";
-        Point2D initialPosition = new Point2D(0, 0);
-        Point2D goalPosition = new Point2D(9, 4);
+       
+        //Point2D goalPosition = new Point2D(9, 4);
 
 //        String mapPath = "./maps/mapMuerte.txt";
 //        Point2D initialPosition = new Point2D(9, 9);
 //        Point2D goalPosition = new Point2D(9, 4);
+        this.agentPath = new ArrayList<Point2D>();
+        this.environment = new Environment(mapPath, initialPosition , agentPath);
         
         
-        agentPath = new LinkedList<>();
-        
-        
-        // initialization of sensorsWeight
-        sensorsWeight = new ArrayList<>(8);
-        //sensorsWeight.addAll(Arrays.asList(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
-        for (int i = 0; i < 8; i++) {
-            sensorsWeight.add(Double.MAX_VALUE);
-        }
-        
-        this.environment = new Environment(mapPath, initialPosition, goalPosition, agentPath);
-
-        memory = new HashMap<>();
-        // Establecemos el minimo valor a la posicion de goal para que siempre se escoja este movimiento
-        memory.put(goalPosition, -100.0);
-
         // Definir comportamientos
         // ...
         
-        this.addBehaviour(new PrintBehaviour());
-        this.addBehaviour(new checkGoalBehaviour()) ;
-        this.addBehaviour(new UpdateMemoryBehaviour());
-        this.addBehaviour(new EvaluateBehaviourByWeight());
-        // this.addBehaviour(new EvaluateBehaviour());
-        this.addBehaviour(new MovementBehaviour());
+        sendBehaviour = new sendMessageBehaviour();
+        
+        printBehaviour = new PrintBehaviour();
+        checkGoalBehaviour = new checkGoalBehaviour();
+        updateMemoryBehaviour = new UpdateMemoryBehaviour();
+        evaluateByWeight = new EvaluateBehaviourByWeight();
+        movementBehaviour = new MovementBehaviour();
+        
+        this.addSendBehaviour();
 
     }
     
@@ -100,4 +102,49 @@ public class Agent203 extends Agent{
         return this.agentPath;
     };
     
+    public void setGoalPosition(Point2D goalPosition){
+        this.environment.setGoalPosition(goalPosition);
+    }
+    
+    public void startSearchingReindeer(){
+        this.retrieveSendBehaviour();
+        agentPath = new LinkedList<>();
+        
+        
+        // initialization of sensorsWeight
+        sensorsWeight = new ArrayList<>(8);
+        //sensorsWeight.addAll(Arrays.asList(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
+        for (int i = 0; i < 8; i++) {
+            sensorsWeight.add(Double.MAX_VALUE);
+        }
+        
+        
+
+        memory = new HashMap<>();
+        // Establecemos el minimo valor a la posicion de goal para que siempre se escoja este movimiento
+        memory.put(this.environment.getGoalPosition(), -100.0);
+
+        this.addBehaviour(this.printBehaviour);
+        this.addBehaviour(this.checkGoalBehaviour) ;
+        this.addBehaviour(this.updateMemoryBehaviour);
+        this.addBehaviour(this.evaluateByWeight);
+        // this.addBehaviour(new EvaluateBehaviour());
+        this.addBehaviour(this.movementBehaviour);
+    }
+    
+    public void finishSearchingReindeer(){
+         this.removeBehaviour(this.printBehaviour);
+        //this.removeBehaviour(this.checkGoalBehaviour) ;
+        this.removeBehaviour(this.updateMemoryBehaviour);
+        //this.removeBehaviour(this.evaluateByWeight);
+        // this.addBehaviour(new EvaluateBehaviour());
+        this.removeBehaviour(this.movementBehaviour);
+    }
+    public void addSendBehaviour(){
+        this.addBehaviour(sendBehaviour);
+    }
+    
+    public void retrieveSendBehaviour(){
+        this.removeBehaviour(sendBehaviour);
+    }
 }
