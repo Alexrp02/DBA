@@ -12,10 +12,10 @@ import jade.core.AID;
  *
  * @author manu
  */
-public class receiveMessageBehaviour extends Behaviour{
+public class receiveMessageRudolfBehaviour extends Behaviour{
     private int step = 0;
     private boolean finish = false;
-    private String code = "ENCUENTRA_RENOS";
+   
     
     @Override
     public void action() {
@@ -27,7 +27,7 @@ public class receiveMessageBehaviour extends Behaviour{
                 String message_code = msg.getLanguage();
                 
                 
-                if (msg.getPerformative() == ACLMessage.REQUEST && message_code == code) {
+                if (msg.getPerformative() == ACLMessage.REQUEST && message_code == ((Rudolf)this.myAgent).getCode()) {
                     ACLMessage replay = msg.createReply(ACLMessage.AGREE);
                     this.myAgent.send(replay);
                     this.step = 1;

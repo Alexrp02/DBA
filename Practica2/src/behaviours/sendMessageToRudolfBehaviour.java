@@ -13,7 +13,7 @@ import jade.lang.acl.ACLMessage;
  *
  * @author manu
  */
-public class sendMessageBehaviour extends Behaviour{
+public class sendMessageToRudolfBehaviour extends Behaviour{
     private int step = 0; 
     boolean first = true;
     boolean finish = false;
@@ -22,10 +22,13 @@ public class sendMessageBehaviour extends Behaviour{
     public void action() {
         switch (this.step) {
             case 0 -> {
+                
+                
                 ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
                 msg.addReceiver(new AID("agentReceiver", AID.ISLOCALNAME));
                 msg.setConversationId(CONVERSATION_ID);
-                msg.setLanguage("ENCUENTRA_RENOS");
+                
+                msg.setLanguage(((Agent203)this.myAgent).getRudolfCode());
                 myAgent.send(msg);
                 this.step = 1;
             }
@@ -67,6 +70,7 @@ public class sendMessageBehaviour extends Behaviour{
                         
                     }else{
                         System.out.println("Rudolf dice que no hay más renos");
+                        ((Agent203)this.myAgent).addSendSantaBehaviour();
                         finish = true;
                     }
                         

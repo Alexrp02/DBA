@@ -25,6 +25,7 @@ public class Agent203 extends Agent{
     // Entorno
     private Environment environment;
     private int nextDirection;
+    private String codeRudolf = "";
     
     // Para pintar por donde va pasando el agente
     private List<Point2D> agentPath;
@@ -36,8 +37,9 @@ public class Agent203 extends Agent{
     //Variable para los pasos de ejecución
     public int steps = 0;
     
+    
     //Comportamiento para el envio de mensajes
-    private sendMessageBehaviour sendBehaviour;
+    private sendMessageToRudolfBehaviour sendRudolfBehaviour;
     
     //Comportamientos para la búsqueda de renos
     private PrintBehaviour printBehaviour;
@@ -45,6 +47,9 @@ public class Agent203 extends Agent{
     private UpdateMemoryBehaviour updateMemoryBehaviour;
     private EvaluateBehaviourByWeight evaluateByWeight;
     private MovementBehaviour movementBehaviour;
+    
+    //Comportamientos para hablar con santa
+    private sendMessageToSantaBehaviour sendSantaBehaviour;
     
         
     String mapPath = "./maps/mapa30.txt";
@@ -74,7 +79,8 @@ public class Agent203 extends Agent{
         // Definir comportamientos
         // ...
         
-        sendBehaviour = new sendMessageBehaviour();
+        sendRudolfBehaviour = new sendMessageToRudolfBehaviour();
+        sendSantaBehaviour = new sendMessageToSantaBehaviour();
         
         printBehaviour = new PrintBehaviour();
         checkGoalBehaviour = new checkGoalBehaviour();
@@ -82,7 +88,7 @@ public class Agent203 extends Agent{
         evaluateByWeight = new EvaluateBehaviourByWeight();
         movementBehaviour = new MovementBehaviour();
         
-        this.addSendBehaviour();
+        this.addSendSantaBehaviour();
 
     }
     
@@ -107,7 +113,7 @@ public class Agent203 extends Agent{
     }
     
     public void startSearchingReindeer(){
-        this.retrieveSendBehaviour();
+        this.retrieveSendRudolfBehaviour();
         agentPath = new LinkedList<>();
         
         
@@ -140,11 +146,27 @@ public class Agent203 extends Agent{
         // this.addBehaviour(new EvaluateBehaviour());
         this.removeBehaviour(this.movementBehaviour);
     }
-    public void addSendBehaviour(){
-        this.addBehaviour(sendBehaviour);
+    public void addSendRudolfBehaviour(){
+        this.addBehaviour(sendRudolfBehaviour);
     }
     
-    public void retrieveSendBehaviour(){
-        this.removeBehaviour(sendBehaviour);
+    public void retrieveSendRudolfBehaviour(){
+        this.removeBehaviour(sendRudolfBehaviour);
+    }
+    
+    public String getRudolfCode(){
+        return this.codeRudolf;
+    }
+    
+    public void setRudolfCode(String code){
+        this.codeRudolf = code;
+    }
+    
+    public void addSendSantaBehaviour(){
+        this.addBehaviour(sendSantaBehaviour);
+    }
+    
+    public void retrieveSendSantaBehaviour(){
+        this.removeBehaviour(sendSantaBehaviour);
     }
 }

@@ -4,13 +4,14 @@
  */
 package core;
 import jade.core.Agent;
-import behaviours.receiveMessageBehaviour;
+import behaviours.receiveMessageRudolfBehaviour;
 import java.util.ArrayList;
 /**
  *
  * @author manu
  */
 public class Rudolf extends Agent{
+    private String code = "ENCUENTRA_RENOS";
     
     public ArrayList<Point2D> reindeerPositions;
      @Override
@@ -18,7 +19,11 @@ public class Rudolf extends Agent{
         reindeerPositions = new ArrayList<Point2D>();
         reindeerPositions.add( new Point2D(29,29));
         reindeerPositions.add( new Point2D(15,15));
-        this.addBehaviour(new receiveMessageBehaviour());
+        this.addBehaviour(new receiveMessageRudolfBehaviour());
     }
+    
+   public String getCode(){
+       return code;
+   }
     
 }
