@@ -172,6 +172,10 @@ public class Environment {
         return false;
     }
     
+    public void addAgentMessage(String message) {
+        ui.addAgentMessage(message);
+    }
+    
     // Print data
     public void print() {
         String data = 
@@ -196,7 +200,7 @@ public class Environment {
         data += "Goal position = [i: " + this.goalPosition.i + ", j: " + this.goalPosition.j + "]\n";
         
         // Pintamos en la UI:
-        ui.updateVisualization(map, currentPosition);
+        ui.updateVisualization(map, currentPosition, goalPosition);
         
         System.out.println(data);
     }

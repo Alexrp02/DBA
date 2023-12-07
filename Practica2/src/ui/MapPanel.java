@@ -27,6 +27,7 @@ public class MapPanel extends JPanel {
         this.worldMap = worldMap;
         this.agentPosition = agentPosition;
         this.agentPath = agentPath;
+        CELL_SIZE = Math.min(this.getWidth()/worldMap.getCols(), this.getHeight()/worldMap.getRows());
 //        setSize(CELL_SIZE * worldMap.getRows(), CELL_SIZE * worldMap.getCols());
     }
 
