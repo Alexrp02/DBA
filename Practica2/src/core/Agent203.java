@@ -52,7 +52,8 @@ public class Agent203 extends Agent{
     private sendMessageToSantaBehaviour sendSantaBehaviour;
     
         
-    String mapPath = "./maps/mapa30.txt";
+//    String mapPath = "./maps/mapa30.txt";
+    String mapPath = "./maps/mapWithComplexObstacle1.txt" ;
     
     @Override
     protected void setup() {

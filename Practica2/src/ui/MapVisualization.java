@@ -1,4 +1,5 @@
 package ui;
+
 import java.util.List;
 import core.Map;
 import javax.swing.*;
@@ -6,12 +7,17 @@ import java.awt.*;
 import core.Point2D;
 
 public class MapVisualization extends JFrame {
-    private int CELL_SIZE = 20 ;
+
+    private int CELL_SIZE = 20;
     private Map worldMap;
-    private  Point2D goalPosition;
+    private Point2D goalPosition;
     private Point2D agentPosition;
     private MapPanel mapPanel;
     private List<Point2D> agentPath;
+
+    public MapVisualization() {
+
+    }
 
     public MapVisualization(Map worldMap, Point2D agentPosition, List<Point2D> agentPath) {
         this.worldMap = worldMap;
@@ -19,7 +25,7 @@ public class MapVisualization extends JFrame {
         this.agentPath = agentPath;
 
         setTitle("Map Visualization");
-        setSize(CELL_SIZE*worldMap.getRows(), CELL_SIZE*worldMap.getCols());
+        setSize(CELL_SIZE * worldMap.getRows(), CELL_SIZE * worldMap.getCols());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -28,8 +34,8 @@ public class MapVisualization extends JFrame {
 
         setVisible(true);
     }
-    
-    public void setGoalPosition(Point2D goalPosition){
+
+    public void setGoalPosition(Point2D goalPosition) {
         this.goalPosition = goalPosition;
     }
 
@@ -48,6 +54,16 @@ public class MapVisualization extends JFrame {
 
             int cellSize = CELL_SIZE; // Adjust this based on your preference
 
+            if (worldMap == null) {
+                for (int i = 0; i < 20; i++) {
+                    for (int j = 0; j < 20; j++) {
+                        g.setColor(Color.CYAN); // Walkable area
+                        g.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+                    }
+                }
+                return ;
+            }
+
             for (int i = 0; i < worldMap.getRows(); i++) {
                 for (int j = 0; j < worldMap.getCols(); j++) {
                     if (worldMap.get(i, j) == -1) {
@@ -64,16 +80,15 @@ public class MapVisualization extends JFrame {
 
             g.setColor(Color.RED); // Agent position
             g.fillOval(agentPosition.j * cellSize, agentPosition.i * cellSize, cellSize, cellSize);
-            
+
             //Ruta del agente
             if (agentPath != null) {
                 g.setColor(Color.YELLOW); // Color amarillo para la ruta del agente
-                
-                
+
                 for (Point2D pathPoint : agentPath) {
-                    g.fillOval(pathPoint.j * cellSize, pathPoint.i * cellSize, cellSize/2, cellSize/2);
+                    g.fillOval(pathPoint.j * cellSize, pathPoint.i * cellSize, cellSize / 2, cellSize / 2);
                 }
-                
+
             }
         }
     }

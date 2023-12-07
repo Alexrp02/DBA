@@ -3,6 +3,7 @@ package core;
 import java.util.ArrayList;
 import java.util.List;
 import ui.MapVisualization;
+import ui.UI;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -18,8 +19,12 @@ public class Environment {
     // World
     private Map map;
     
-    //Map Visualization
-    private MapVisualization ui ; 
+//    //Map Visualization
+//    private MapVisualization ui ; 
+    
+    //GUI
+    private UI ui = new UI() ;
+            
     
     
     // Sensors
@@ -39,8 +44,9 @@ public class Environment {
         this.agentPath = agentPath;
         
         this.currentPosition = initialPosition;
-        ui = new MapVisualization(map, currentPosition, this.agentPath) ;
-        
+//        ui = new MapVisualization(map, currentPosition, this.agentPath) ;
+        ui.setVisible(true);
+        ui.initializeVariables(map, currentPosition, agentPath);
         
         
         this.sensors = new ArrayList<>(8);
