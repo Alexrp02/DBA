@@ -5,6 +5,7 @@
 package core;
 
 import behaviours.ReceiveMessageSantaBehaviour;
+import behaviours.SantaBehaviour;
 import jade.core.Agent;
 import java.util.Random;
 /**
@@ -16,13 +17,15 @@ public class Santa extends Agent{
     
     @Override
     protected void setup(){
-        this.addBehaviour(new ReceiveMessageSantaBehaviour());
+        // this.addBehaviour(new ReceiveMessageSantaBehaviour());
+        this.addBehaviour(new SantaBehaviour());
     }
     
     public boolean isGoodAgent(){
         Random random = new Random();
         double probabilidad = random.nextDouble(); // Genera un número entre 0 y 1
-        return probabilidad <= 0.8; // Eres digno si el número es menor o igual a 0.8
+        // return probabilidad <= 0.8; // Eres digno si el número es menor o igual a 0.8
+        return true;
     }
     
     public String getCode(){

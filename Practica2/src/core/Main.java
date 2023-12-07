@@ -32,11 +32,11 @@ public class Main {
         
         /// Creamos el agente y comenzamos su ejecución
 
-        String agentName = "agent203";
-        String className = Agent203.class.getCanonicalName();
+        String agentName = Globals.AGENT203_AID;
+        String className = Agent203_1.class.getCanonicalName();
         
-        String agentReceiverName = "agentReceiver";
-        String classReceiverName = Rudolf.class.getCanonicalName();
+        String rudolfName = Globals.RUDOLF_AID;
+        String classRudolfName = Rudolf.class.getCanonicalName();
         
         String santaName = "santa";
         String classSantaName = Santa.class.getCanonicalName();
@@ -44,12 +44,12 @@ public class Main {
         
         try {
         //AgentController asc = cc.createNewAgent(agentSenderName, classSenderName, null);
-        AgentController arc = cc.createNewAgent(agentReceiverName, classReceiverName, null);
+        AgentController arc = cc.createNewAgent(rudolfName, classRudolfName, null);
         AgentController ac = cc.createNewAgent(agentName, className, null);
-        AgentController asc = cc.createNewAgent(santaName, classSantaName, null);
+        //AgentController asc = cc.createNewAgent(santaName, classSantaName, null);
         
         ac.start(); 
-        asc.start();
+        //asc.start();
         arc.start();
         
         } catch (StaleProxyException e) {
