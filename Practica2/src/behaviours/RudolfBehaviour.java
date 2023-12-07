@@ -31,7 +31,7 @@ public class RudolfBehaviour extends Behaviour{
                 System.out.println(msg);
                 
                 String msgConversationID = msg.getConversationId();
-                String rudolfCode = ((Rudolf)this.myAgent).getCode();
+                String rudolfCode = ((Rudolf)this.myAgent).getSecretConversationID();
                 
                 ACLMessage reply = msg.createReply();
                 

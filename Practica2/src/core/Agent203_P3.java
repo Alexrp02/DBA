@@ -7,20 +7,13 @@ package core;
 
 
 import jade.core.Agent;
-import java.util.LinkedList;
-import java.util.List;
-import behaviours.*;
-import jade.core.behaviours.Behaviour;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
+import behaviours.AgentBehaviour; 
 
 /**
  *
- * @author alexrp
+ * @author carlosqp
  */
-public class Agent203_1 extends Agent{
+public class Agent203_P3 extends Agent{
     
     
     // Sólo comunicacion
@@ -28,16 +21,26 @@ public class Agent203_1 extends Agent{
     private final String Santa_AID = Globals.SANTA_AID;
     
     private String secretConversationID = "¿?";
-    
+
     public String getRudolfAID() {
         return Rudolf_AID;
     }
     
+    public String getSantaAID() {
+        return Santa_AID;
+    }
+    
+    public void setSecretConversationID(String secretConversationID) {
+        this.secretConversationID = secretConversationID;
+    }
+
+    public String getSecretConversationID() {
+        return secretConversationID;
+    }
+    
     @Override
     protected void setup() {
-        this.addBehaviour(new Agent203Behaviour());
-        
+        this.addBehaviour(new AgentBehaviour());   
     }
-       
-    
+
 }

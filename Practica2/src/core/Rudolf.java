@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * @author manu
  */
 public class Rudolf extends Agent{
-    // private String code = "ENCUENTRA_RENOS";
+    // private String secretConversationID = "ENCUENTRA_RENOS";
     
     // PIN secreto de la conversacion
-    private final String code = Globals.SECRET_CODE;
+    private final String secretConversationID = Globals.SECRET_CODE;
 
     // Lista de posiciones de renos perdidos por el mapa
     public ArrayList<Point2D> reindeerPositions;
@@ -35,8 +35,8 @@ public class Rudolf extends Agent{
 
     }
     
-   public String getCode(){
-       return code;
+   public String getSecretConversationID(){
+       return secretConversationID;
    }
     
 }

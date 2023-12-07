@@ -54,7 +54,7 @@ public class ReceiveMessageSantaBehaviour extends Behaviour{
                 if (msg.getPerformative() == ACLMessage.ACCEPT_PROPOSAL) {
                     ACLMessage replay = msg.createReply(ACLMessage.INFORM);
                     
-                    replay.setContent(((Santa)this.myAgent).getCode());
+                    replay.setContent(((Santa)this.myAgent).getSecretConversationID());
                     this.myAgent.send(replay);
                     this.step = 2;
                     

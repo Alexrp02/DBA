@@ -6,7 +6,6 @@ package behaviours;
 
 import core.Point2D;
 import core.Santa;
-import core.Globals;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -33,9 +32,10 @@ public class SantaBehaviour extends Behaviour{
                 if (msg.getPerformative() == ACLMessage.PROPOSE) {
                     if(((Santa)this.myAgent).isGoodAgent()){
                         System.out.println("Ha sido un agente bueno." );
+                        String secretCode = ((Santa)this.myAgent).getSecretConversationID();
                         
                         reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-                        reply.setContent(Globals.SECRET_CODE);
+                        reply.setContent(secretCode);
                         this.myAgent.send(reply);
                         this.step = 1;
                     } else {
