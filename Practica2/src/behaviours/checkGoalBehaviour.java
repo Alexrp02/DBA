@@ -15,23 +15,21 @@ public class checkGoalBehaviour extends Behaviour {
 
     @Override
     public void action() {
+        if(((Agent203)myAgent).isMovement())  {
+            boolean end
+                    = ((Agent203) this.myAgent).getEnvironment().getCurrentPosition().equals(
+                            ((Agent203) this.myAgent).getEnvironment().getGoalPosition()
+                    );
+
+            if (end) {
+                ((Agent203)myAgent).setMovement(false);
+            }
+        }
     }
 
     @Override
     public boolean done() {
-       
-        boolean end
-                = ((Agent203) this.myAgent).getEnvironment().getCurrentPosition().equals(
-                        ((Agent203) this.myAgent).getEnvironment().getGoalPosition()
-                );
-
-        if (end) {
-            //((Agent203)this.myAgent).finishSearchingReindeer();
-            //((Agent203)this.myAgent).addSendRudolfBehaviour();
-            
-        }
-
-        return end;
+        return false;
     }
 
 }

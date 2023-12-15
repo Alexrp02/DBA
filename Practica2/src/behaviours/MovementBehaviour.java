@@ -30,44 +30,45 @@ public class MovementBehaviour extends Behaviour {
     
     @Override
     public void action() {
-        
-        boolean debug = false;
-        
-        if(!debug){
-            
-            //Obtenemos la dirección en la que nos movemos
-            int nextDirection = ((Agent203)this.myAgent).getNextDirection();
-            
-            try {
-                //Se la pasamos al entorno y nos movemos despues de esperar 2 segundos
-                Thread.sleep(300);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MovementBehaviour.class.getName()).log(Level.SEVERE, null, ex);
+        if(((Agent203)myAgent).isMovement()) {
+
+            boolean debug = false;
+
+            if(!debug){
+
+                //Obtenemos la dirección en la que nos movemos
+                int nextDirection = ((Agent203)this.myAgent).getNextDirection();
+
+                try {
+                    //Se la pasamos al entorno y nos movemos despues de esperar 2 segundos
+                    Thread.sleep(50);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MovementBehaviour.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if(!((Agent203)this.myAgent).getEnvironment().move(nextDirection))
+                    System.out.println("No puedo moverme");
+                else{
+                    ((Agent203) myAgent).steps ++ ;
+                }
+            }else{
+                //Se pide al usuario que se inserte la dirección a la que se mueve
+                System.out.println("Introduzca la dirección del movimiento: ");
+
+                int nextDirection = scanner.nextInt();
+
+                if(!((Agent203)this.myAgent).getEnvironment().move(nextDirection))
+                    System.out.println("No puedo moverme");
+                else{
+                    System.out.println(((Agent203)this.myAgent).getEnvironment().getCurrentPosition().equals(
+                            ((Agent203)this.myAgent).getEnvironment().getGoalPosition())
+                    );
+
+                    System.out.println("Current: "+((Agent203)this.myAgent).getEnvironment().getCurrentPosition().i + ", "+((Agent203)this.myAgent).getEnvironment().getCurrentPosition().j);
+                    System.out.println("Goal: "+((Agent203)this.myAgent).getEnvironment().getGoalPosition().i + "," + ((Agent203)this.myAgent).getEnvironment().getGoalPosition().j);
+                }
+
             }
-            if(!((Agent203)this.myAgent).getEnvironment().move(nextDirection))
-                System.out.println("No puedo moverme");
-            else{
-                ((Agent203) myAgent).steps ++ ;
-            }
-        }else{
-            //Se pide al usuario que se inserte la dirección a la que se mueve
-            System.out.println("Introduzca la dirección del movimiento: ");
-            
-            int nextDirection = scanner.nextInt();
-            
-            if(!((Agent203)this.myAgent).getEnvironment().move(nextDirection))
-                System.out.println("No puedo moverme");
-            else{
-                System.out.println(((Agent203)this.myAgent).getEnvironment().getCurrentPosition().equals(
-                        ((Agent203)this.myAgent).getEnvironment().getGoalPosition())
-                );
-                
-                System.out.println("Current: "+((Agent203)this.myAgent).getEnvironment().getCurrentPosition().i + ", "+((Agent203)this.myAgent).getEnvironment().getCurrentPosition().j);
-                System.out.println("Goal: "+((Agent203)this.myAgent).getEnvironment().getGoalPosition().i + "," + ((Agent203)this.myAgent).getEnvironment().getGoalPosition().j);
-            }
-            
         }
-        
     }
 
     @Override

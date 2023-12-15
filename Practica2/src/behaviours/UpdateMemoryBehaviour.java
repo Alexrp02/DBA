@@ -35,15 +35,17 @@ public class UpdateMemoryBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
+        if(((Agent203)myAgent).isMovement()) {
 
-        // Actualiza los sensores, y las variables que dependen de ellos
-        updateSensors();
+            // Actualiza los sensores, y las variables que dependen de ellos
+            updateSensors();
 
-        // Actualizar aquí la memoria
-        updateMemory();
+            // Actualizar aquí la memoria
+            updateMemory();
 
-        /// Actualizamos el peso de la casilla en la que estamos
-        updateSensorsWeight();
+            /// Actualizamos el peso de la casilla en la que estamos
+            updateSensorsWeight();
+        }
     }
 
     private void updateSensors() {

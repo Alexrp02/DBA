@@ -75,29 +75,32 @@ public class Agent203 extends Agent{
         return secretConversationID;
     }
     
-        
-    public void resetMemory() {
-    
-    }
-    
     
     @Override
     protected void setup() {
         
-        
+        // Inicializar memoria del agente
         this.environment = (Environment) getArguments()[0];
-        this.agentPath = (List<Point2D>) getArguments()[1]; //        String mapPath = "./maps/mapWithVerticalWall.txt";
-        Point2D initialPosition = new Point2D(0, 0);
+        this.agentPath = (List<Point2D>) getArguments()[1];
         
         this.setMovement(false);
+
+        // initialization of sensorsWeight
+        sensorsWeight = new ArrayList<>(8);
+        for (int i = 0; i < 8; i++) {
+            sensorsWeight.add(Double.MAX_VALUE);
+        }
         
+        memory = new HashMap<>();
+        
+        
+        // Añadir comportamientos
         this.addBehaviour(new AgentCommunicationBehaviour());  
-        
-        //this.addBehaviour(new PrintBehaviour());
-        //this.addBehaviour(new checkGoalBehaviour()) ;
-        //this.addBehaviour(new UpdateMemoryBehaviour());
-        //this.addBehaviour(new EvaluateBehaviourByWeight());
-        //this.addBehaviour(new MovementBehaviour());
+        this.addBehaviour(new PrintBehaviour());
+        this.addBehaviour(new checkGoalBehaviour()) ;
+        this.addBehaviour(new UpdateMemoryBehaviour());
+        this.addBehaviour(new EvaluateBehaviourByWeight());
+        this.addBehaviour(new MovementBehaviour());
     }
 
     public Environment getEnvironment() {
@@ -114,11 +117,22 @@ public class Agent203 extends Agent{
 
     public List<Point2D> getAgentPath() {
         return this.agentPath;
-    }
-
-    ;
+    };
     
+    // Al establecer una nueva posicion objetivo, se debe:
+    // - formatear la memoria
+    // - inicializarla nuevamente
     public void setGoalPosition(Point2D goalPosition) {
         this.environment.setGoalPosition(goalPosition);
+        
+        // Limpiamos la memoria
+        memory.clear();
+        // Establecemos el minimo valor a la posicion de goal para que siempre se escoja este movimiento
+        memory.put(environment.getGoalPosition(), -100.0);
+        
+        // Volvemos a formatear sensorsWeight
+        for (int i = 0; i < 8; i++) {
+            sensorsWeight.set(i, Double.MAX_VALUE);
+        }
     }
 }

@@ -186,31 +186,31 @@ public class Environment {
     
     // Print data
     public void print() {
-        String data = 
-                "\n---------------------------------\nPrinting environment:\n";
-        
-        for (int i = 0; i < this.map.getRows(); i++) {
-            for (int j = 0; j < this.map.getCols(); j++) {
-                
-                if (i==this.currentPosition.i && j==this.currentPosition.j) 
-                    data += "A";
-                else if (i==this.goalPosition.i && j==this.goalPosition.j) 
-                    data += "X";
-                else 
-                    data += this.map.get(i,j);
-                
-                data += "\t";
-            }
-            data += "\n";
-        }
-        
-        data += "Agent position = [i: " + this.currentPosition.i + ", j: " + this.currentPosition.j + "]\n";
-        data += "Goal position = [i: " + this.goalPosition.i + ", j: " + this.goalPosition.j + "]\n";
-        
+//        String data = 
+//                "\n---------------------------------\nPrinting environment:\n";
+//        
+//        for (int i = 0; i < this.map.getRows(); i++) {
+//            for (int j = 0; j < this.map.getCols(); j++) {
+//                
+//                if (i==this.currentPosition.i && j==this.currentPosition.j) 
+//                    data += "A";
+//                else if (i==this.goalPosition.i && j==this.goalPosition.j) 
+//                    data += "X";
+//                else 
+//                    data += this.map.get(i,j);
+//                
+//                data += "\t";
+//            }
+//            data += "\n";
+//        }
+//        
+//        data += "Agent position = [i: " + this.currentPosition.i + ", j: " + this.currentPosition.j + "]\n";
+//        data += "Goal position = [i: " + this.goalPosition.i + ", j: " + this.goalPosition.j + "]\n";
+//        
         // Pintamos en la UI:
         ui.updateVisualization(map, currentPosition, goalPosition);
         
-        System.out.println(data);
+       // System.out.println(data);
     }
     
 }

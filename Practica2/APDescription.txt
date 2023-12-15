@@ -1,1 +1,1 @@
-( ap-description  :name "203_server" :ap-services (set ( ap-service  :name fipa.mts.mtp.http.std :type fipa.mts.mtp.http.std :addresses (sequence http://manu:7778/acc))))
+( ap-description  :name "203_server" :ap-services (set ( ap-service  :name fipa.mts.mtp.http.std :type fipa.mts.mtp.http.std :addresses (sequence http://VirtualBox-Ubuntu22:7778/acc))))

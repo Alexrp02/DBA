@@ -136,7 +136,7 @@ public class AgentCommunicationBehaviour extends Behaviour {
 
                         System.out.println("Llendo al objetivo... " + objetivo.toString());
                         ((Agent203) myAgent).setGoalPosition(objetivo);
-                        // ((Agent203) myAgent).setMovement(true);
+                        ((Agent203) myAgent).setMovement(true);
                         this.step = 10;
 
                     } else if(msg.getPerformative() == ACLMessage.FAILURE) {
@@ -172,26 +172,26 @@ public class AgentCommunicationBehaviour extends Behaviour {
                         Point2D objetivo = Point2D.fromString(content);
 
                         System.out.println("Llendo al objetivo... " + objetivo.toString());
-
-                        try{
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            System.out.println("No pude dormir");
-                        }
-
-                        System.out.println("He llegado a la posicion " + objetivo.toString());
-
-                        // Tras ir hacia el punto, vuelve a pedir uno nuevo
-                        ACLMessage reply = msg.createReply(ACLMessage.INFORM);
-                        reply.setContent("He llegado a Santa con los renos.");
-                        myAgent.send(reply);
-                        this.step = 7;
-
+                        ((Agent203) myAgent).setGoalPosition(objetivo);
+                        ((Agent203) myAgent).setMovement(true);
+                        this.step = 11;
                     } else {
                         System.out.println("Error en el protocolo");
                         myAgent.doDelete();
                     }
 
+                }
+                
+                case 11 -> {
+                    Point2D objetivo = ((Agent203) myAgent).getEnvironment().getGoalPosition();
+
+                    System.out.println("He llegado a la posicion " + objetivo.toString());
+
+                    // Tras ir hacia el punto, vuelve a pedir uno nuevo
+                    ACLMessage reply = this.santaChannelRef.createReply(ACLMessage.INFORM);
+                    reply.setContent("He llegado a Santa con los renos.");
+                    myAgent.send(reply);
+                    this.step = 7;
                 }
 
                 case 7 -> {

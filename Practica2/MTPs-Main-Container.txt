@@ -1,1 +1,1 @@
-http://manu:7778/acc
+http://VirtualBox-Ubuntu22:7778/acc
