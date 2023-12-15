@@ -41,11 +41,20 @@ public class Main {
         String santaName = Globals.SANTA_AID;
         String classSantaName = Santa.class.getCanonicalName();
         
+        String mapPath = "./maps/mapa30.txt";
+        Point2D initialPosition = new Point2D(0, 0);
+
+        List<Point2D> agentPath = new ArrayList<>();
+        Environment environment = new Environment(mapPath, initialPosition, agentPath);
+        Object[] agentArgs = new Object[3] ;
+        agentArgs[0] = environment ;
+        agentArgs[1] = agentPath;
+        
         
         try {
-        AgentController arc = cc.createNewAgent(rudolfName, classRudolfName, null);
-        AgentController ac = cc.createNewAgent(agentName, className, null);
-        AgentController asc = cc.createNewAgent(santaName, classSantaName, null);
+        AgentController arc = cc.createNewAgent(rudolfName, classRudolfName, agentArgs);
+        AgentController ac = cc.createNewAgent(agentName, className, agentArgs);
+        AgentController asc = cc.createNewAgent(santaName, classSantaName, agentArgs);
         
         ac.start(); 
         asc.start();
