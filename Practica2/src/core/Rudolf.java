@@ -12,10 +12,13 @@ import java.util.ArrayList;
  */
 public class Rudolf extends Agent{
     private String code = "ENCUENTRA_RENOS";
+    private Environment environment;
     
     public ArrayList<Point2D> reindeerPositions;
      @Override
     protected void setup(){
+        
+        this.environment = (Environment) getArguments()[0] ;
         reindeerPositions = new ArrayList<Point2D>();
         reindeerPositions.add( new Point2D(29,29));
         reindeerPositions.add( new Point2D(15,15));

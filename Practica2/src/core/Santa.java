@@ -13,10 +13,12 @@ import java.util.Random;
  */
 public class Santa extends Agent{
     private String code = "ENCUENTRA_RENOS";
+    public Environment environment;
     
     @Override
     protected void setup(){
         this.addBehaviour(new ReceiveMessageSantaBehaviour());
+        this.environment = (Environment) getArguments()[0] ;
     }
     
     public boolean isGoodAgent(){

@@ -36,6 +36,10 @@ public class UI extends javax.swing.JFrame {
     public void addAgentMessage(String message) {
         this.agentOutput.append(message + '\n');
     }
+    
+    public void addSantaMessage(String message) {
+        this.rudolphOutput.append(message + '\n');
+    }
 
     public void initializeVariables(Map worldMap, Point2D agentPosition, List<Point2D> agentPath) {
         this.worldMap = worldMap;
@@ -155,7 +159,7 @@ public class UI extends javax.swing.JFrame {
 
         jLabel3.setText("Agent");
 
-        jLabel4.setText("Rudolph");
+        jLabel4.setText("Santa");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

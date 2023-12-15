@@ -29,11 +29,13 @@ public class ReceiveMessageSantaBehaviour extends Behaviour{
                     if(((Santa)this.myAgent).isGoodAgent()){
                         ACLMessage replay = msg.createReply(ACLMessage.AGREE);
                         System.out.println("Ha sido un agente bueno." );
+                        
                         this.myAgent.send(replay);
                         this.step = 1;
                     }else{
                         ACLMessage replay = msg.createReply(ACLMessage.REFUSE);
                         System.out.println("No ha sido un agente bueno." );
+                        ((Santa)(this.myAgent)).environment.addSantaMessage("No ha sido un agente bueno.");
                         this.myAgent.send(replay);
                         this.finish = true;
                     }
@@ -72,6 +74,7 @@ public class ReceiveMessageSantaBehaviour extends Behaviour{
                     ACLMessage replay = msg.createReply(ACLMessage.INFORM);
                     
                     System.out.println("HO! HO! HO! Feliz Navidad!");
+                    ((Santa)(this.myAgent)).environment.addSantaMessage("HO! HO! HO! Feliz Navidad!");
                     
                     replay.setContent("HO! HO! HO! Feliz Navidad!");
                     this.myAgent.send(replay);

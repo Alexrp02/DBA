@@ -176,6 +176,10 @@ public class Environment {
         ui.addAgentMessage(message);
     }
     
+    public void addSantaMessage(String message) {
+        ui.addSantaMessage(message);
+    }
+    
     // Print data
     public void print() {
         String data = 
