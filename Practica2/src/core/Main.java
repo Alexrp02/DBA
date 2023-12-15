@@ -33,7 +33,7 @@ public class Main {
         /// Creamos el agente y comenzamos su ejecución
 
         String agentName = Globals.AGENT203_AID;
-        String className = Agent203_P3.class.getCanonicalName();
+        String className = Agent203.class.getCanonicalName();
         
         String rudolfName = Globals.RUDOLF_AID;
         String classRudolfName = Rudolf.class.getCanonicalName();

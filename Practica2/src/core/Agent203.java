@@ -4,6 +4,11 @@ package core;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
+
+import jade.core.Agent;
+import behaviours.AgentCommunicationBehaviour; 
+import java.util.List;
 import jade.core.Agent;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,15 +21,21 @@ import java.util.HashMap;
 
 /**
  *
- * @author alexrp
+ * @author carlosqp
  */
-public class Agent203 extends Agent {
-
+public class Agent203 extends Agent{
+    
+    
+    // Sólo comunicacion
+    private final String Rudolf_AID = Globals.RUDOLF_AID;
+    private final String Santa_AID = Globals.SANTA_AID;
+    
+    private String secretConversationID = "¿?";
+    
     // Entorno
     private Environment environment;
     private int nextDirection;
-    private String codeRudolf = "";
-
+    
     // Para pintar por donde va pasando el agente
     private List<Point2D> agentPath;
 
@@ -34,57 +45,49 @@ public class Agent203 extends Agent {
 
     //Variable para los pasos de ejecución
     public int steps = 0;
-
-    //Comportamiento para el envio de mensajes
-    private sendMessageToRudolfBehaviour sendRudolfBehaviour;
-
-    //Comportamientos para la búsqueda de renos
-    private PrintBehaviour printBehaviour;
-    private checkGoalBehaviour checkGoalBehaviour;
-    private UpdateMemoryBehaviour updateMemoryBehaviour;
-    private EvaluateBehaviourByWeight evaluateByWeight;
-    private MovementBehaviour movementBehaviour;
-
-    //Comportamientos para hablar con santa
-    private sendMessageToSantaBehaviour sendSantaBehaviour;
-
+    
+    private boolean movement = false;
+    
+        
     String mapPath = "./maps/mapa30.txt";
-//    String mapPath = "./maps/mapWithComplexObstacle1.txt" ;
 
-//    public Agent203 (Environment env, List<Point2D> path) {
-//        this.environment = env ;
-//        this.agentPath = path ;
-//    }
+    public String getRudolfAID() {
+        return Rudolf_AID;
+    }
+    
+    public String getSantaAID() {
+        return Santa_AID;
+    }
+    
+    public void setSecretConversationID(String secretConversationID) {
+        this.secretConversationID = secretConversationID;
+    }
+
+    public String getSecretConversationID() {
+        return secretConversationID;
+    }
+    
+        
+    public void resetMemory() {
+    
+    }
+    
+    
     @Override
     protected void setup() {
-        // Inicializar aquí el entorno
+        
+        
         this.environment = (Environment) getArguments()[0];
         this.agentPath = (List<Point2D>) getArguments()[1]; //        String mapPath = "./maps/mapWithVerticalWall.txt";
         Point2D initialPosition = new Point2D(0, 0);
-//        Point2D goalPosition = new Point2D(5, 5);
-
-//        String mapPath = "./maps/mapWithComplexObstacle1.txt";
-//        Point2D initialPosition = new Point2D(5, 6);
-//        Point2D goalPosition = new Point2D(8, 0);
-        //Point2D goalPosition = new Point2D(9, 4);
-//        String mapPath = "./maps/mapMuerte.txt";
-//        Point2D initialPosition = new Point2D(9, 9);
-//        Point2D goalPosition = new Point2D(9, 4);
-//        this.agentPath = new ArrayList<Point2D>();
-//        this.environment = new Environment(mapPath, initialPosition , agentPath);
-        // Definir comportamientos
-        // ...
-        sendRudolfBehaviour = new sendMessageToRudolfBehaviour();
-        sendSantaBehaviour = new sendMessageToSantaBehaviour();
-
-        printBehaviour = new PrintBehaviour();
-        checkGoalBehaviour = new checkGoalBehaviour();
-        updateMemoryBehaviour = new UpdateMemoryBehaviour();
-        evaluateByWeight = new EvaluateBehaviourByWeight();
-        movementBehaviour = new MovementBehaviour();
-
-        this.addSendSantaBehaviour();
-
+        
+        this.addBehaviour(new AgentCommunicationBehaviour());  
+        
+        //this.addBehaviour(new PrintBehaviour());
+        //this.addBehaviour(new checkGoalBehaviour()) ;
+        //this.addBehaviour(new UpdateMemoryBehaviour());
+        //this.addBehaviour(new EvaluateBehaviourByWeight());
+        //this.addBehaviour(new MovementBehaviour());
     }
 
     public Environment getEnvironment() {
@@ -108,62 +111,4 @@ public class Agent203 extends Agent {
     public void setGoalPosition(Point2D goalPosition) {
         this.environment.setGoalPosition(goalPosition);
     }
-
-    public void startSearchingReindeer() {
-        this.retrieveSendRudolfBehaviour();
-        agentPath = new LinkedList<>();
-
-        // initialization of sensorsWeight
-        sensorsWeight = new ArrayList<>(8);
-        //sensorsWeight.addAll(Arrays.asList(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
-        for (int i = 0; i < 8; i++) {
-            sensorsWeight.add(Double.MAX_VALUE);
-        }
-
-        memory = new HashMap<>();
-        // Establecemos el minimo valor a la posicion de goal para que siempre se escoja este movimiento
-        memory.put(this.environment.getGoalPosition(), -100.0);
-
-        this.addBehaviour(this.printBehaviour);
-        this.addBehaviour(this.checkGoalBehaviour);
-        this.addBehaviour(this.updateMemoryBehaviour);
-        this.addBehaviour(this.evaluateByWeight);
-        // this.addBehaviour(new EvaluateBehaviour());
-        this.addBehaviour(this.movementBehaviour);
-    }
-
-    public void finishSearchingReindeer() {
-        this.removeBehaviour(this.printBehaviour);
-        //this.removeBehaviour(this.checkGoalBehaviour) ;
-        this.removeBehaviour(this.updateMemoryBehaviour);
-        //this.removeBehaviour(this.evaluateByWeight);
-        // this.addBehaviour(new EvaluateBehaviour());
-        this.removeBehaviour(this.movementBehaviour);
-    }
-
-    public void addSendRudolfBehaviour() {
-        this.addBehaviour(sendRudolfBehaviour);
-    }
-
-    public void retrieveSendRudolfBehaviour() {
-        this.removeBehaviour(sendRudolfBehaviour);
-    }
-
-    public String getRudolfCode() {
-        return this.codeRudolf;
-    }
-
-    public void setRudolfCode(String code) {
-        this.codeRudolf = code;
-    }
-
-    public void addSendSantaBehaviour() {
-        this.addBehaviour(sendSantaBehaviour);
-    }
-
-    public void retrieveSendSantaBehaviour() {
-        this.removeBehaviour(sendSantaBehaviour);
-    }
-    
-    
 }

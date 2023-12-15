@@ -26,8 +26,8 @@ public class checkGoalBehaviour extends Behaviour {
                 );
 
         if (end) {
-            ((Agent203)this.myAgent).finishSearchingReindeer();
-            ((Agent203)this.myAgent).addSendRudolfBehaviour();
+            //((Agent203)this.myAgent).finishSearchingReindeer();
+            //((Agent203)this.myAgent).addSendRudolfBehaviour();
             
         }
 
