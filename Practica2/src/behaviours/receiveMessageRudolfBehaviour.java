@@ -27,7 +27,7 @@ public class receiveMessageRudolfBehaviour extends Behaviour{
                 String message_code = msg.getLanguage();
                 
                 
-                if (msg.getPerformative() == ACLMessage.REQUEST && message_code.equalsIgnoreCase(((Rudolf)this.myAgent).getCode())) {
+                if (msg.getPerformative() == ACLMessage.REQUEST && message_code == ((Rudolf)this.myAgent).getSecretConversationID()) {
                     ACLMessage replay = msg.createReply(ACLMessage.AGREE);
                     this.myAgent.send(replay);
                     this.step = 1;

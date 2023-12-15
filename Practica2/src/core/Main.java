@@ -31,34 +31,26 @@ public class Main {
         ContainerController cc = rt.createAgentContainer(p);
 
         /// Creamos el agente y comenzamos su ejecución
-        String agentName = "agent203";
-        String className = Agent203.class.getCanonicalName();
 
-        String agentReceiverName = "agentReceiver";
-        String classReceiverName = Rudolf.class.getCanonicalName();
-
-        String santaName = "santa";
+        String agentName = Globals.AGENT203_AID;
+        String className = Agent203_P3.class.getCanonicalName();
+        
+        String rudolfName = Globals.RUDOLF_AID;
+        String classRudolfName = Rudolf.class.getCanonicalName();
+        
+        String santaName = Globals.SANTA_AID;
         String classSantaName = Santa.class.getCanonicalName();
-
-        String mapPath = "./maps/mapa30.txt";
-        Point2D initialPosition = new Point2D(0, 0);
-
-        List<Point2D> agentPath = new ArrayList<>();
-        Environment environment = new Environment(mapPath, initialPosition, agentPath);
-        Object[] agentArgs = new Object[3] ;
-        agentArgs[0] = environment ;
-        agentArgs[1] = agentPath;
-
+        
+        
         try {
-            //AgentController asc = cc.createNewAgent(agentSenderName, classSenderName, null);
-            AgentController arc = cc.createNewAgent(agentReceiverName, classReceiverName, agentArgs);
-            AgentController ac = cc.createNewAgent(agentName, className, agentArgs);
-            AgentController asc = cc.createNewAgent(santaName, classSantaName, agentArgs);
-
-            ac.start();
-            asc.start();
-            arc.start();
-
+        AgentController arc = cc.createNewAgent(rudolfName, classRudolfName, null);
+        AgentController ac = cc.createNewAgent(agentName, className, null);
+        AgentController asc = cc.createNewAgent(santaName, classSantaName, null);
+        
+        ac.start(); 
+        asc.start();
+        arc.start();
+        
         } catch (StaleProxyException e) {
             e.printStackTrace(); // Imprime la traza de la excepción para diagnóstico
             // También puedes manejar la excepción de otras formas según tus necesidades

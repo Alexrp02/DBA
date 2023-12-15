@@ -4,20 +4,24 @@
  */
 package core;
 
-import behaviours.ReceiveMessageSantaBehaviour;
+import behaviours.SantaBehaviour;
 import jade.core.Agent;
 import java.util.Random;
 /**
  *
  * @author manu
  */
-public class Santa extends Agent{
-    private String code = "ENCUENTRA_RENOS";
+public class Santa extends Agent { 
+    private final String secretConversationID = Globals.SECRET_CODE;
+
+    public String getSecretConversationID() {
+        return secretConversationID;
+    }
     public Environment environment;
     
     @Override
     protected void setup(){
-        this.addBehaviour(new ReceiveMessageSantaBehaviour());
+        this.addBehaviour(new SantaBehaviour());
         this.environment = (Environment) getArguments()[0] ;
     }
     
@@ -25,9 +29,7 @@ public class Santa extends Agent{
         Random random = new Random();
         double probabilidad = random.nextDouble(); // Genera un número entre 0 y 1
         return probabilidad <= 0.8; // Eres digno si el número es menor o igual a 0.8
+        // return true;
     }
     
-    public String getCode(){
-        return code;
-    }
 }

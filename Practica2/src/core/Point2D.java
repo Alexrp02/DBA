@@ -44,6 +44,29 @@ public class Point2D {
     public int hashCode() {
         return Objects.hash(i, j);
     }
+    
+    // Método toString para representar el punto en formato "i,j"
+    @Override
+    public String toString() {
+        return i + "," + j;
+    }
+
+    // Método estático fromString para crear un objeto Point2D desde una cadena en formato "i,j"
+    public static Point2D fromString(String str) {
+        String[] coordinates = str.split(",");
+        if (coordinates.length == 2) {
+            try {
+                int i = Integer.parseInt(coordinates[0].trim());
+                int j = Integer.parseInt(coordinates[1].trim());
+                return new Point2D(i, j);
+            } catch (NumberFormatException e) {
+                // Manejar la excepción si las coordenadas no son números válidos
+                e.printStackTrace();
+            }
+        }
+        // Retornar null si el formato no es válido
+        return null;
+    }
 }
 
 
