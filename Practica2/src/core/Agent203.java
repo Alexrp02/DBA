@@ -47,6 +47,14 @@ public class Agent203 extends Agent{
     public int steps = 0;
     
     private boolean movement = false;
+
+    public boolean isMovement() {
+        return movement;
+    }
+
+    public void setMovement(boolean movement) {
+        this.movement = movement;
+    }
     
         
     String mapPath = "./maps/mapa30.txt";
@@ -81,6 +89,8 @@ public class Agent203 extends Agent{
 
         this.agentPath = new ArrayList<Point2D>();
         this.environment = new Environment(mapPath, initialPosition , agentPath);
+        
+        this.setMovement(false);
         
         this.addBehaviour(new AgentCommunicationBehaviour());  
         
