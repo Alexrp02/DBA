@@ -47,6 +47,14 @@ public class Agent203 extends Agent{
     public int steps = 0;
     
     private boolean movement = false;
+
+    public boolean isMovement() {
+        return movement;
+    }
+
+    public void setMovement(boolean movement) {
+        this.movement = movement;
+    }
     
         
     String mapPath = "./maps/mapa30.txt";
@@ -80,6 +88,8 @@ public class Agent203 extends Agent{
         this.environment = (Environment) getArguments()[0];
         this.agentPath = (List<Point2D>) getArguments()[1]; //        String mapPath = "./maps/mapWithVerticalWall.txt";
         Point2D initialPosition = new Point2D(0, 0);
+        
+        this.setMovement(false);
         
         this.addBehaviour(new AgentCommunicationBehaviour());  
         
