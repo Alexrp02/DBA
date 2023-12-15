@@ -4,7 +4,7 @@
  */
 package behaviours;
 
-import core.Agent203_P3;
+import core.Agent203;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -15,7 +15,7 @@ import jade.core.AID;
  *
  * @author manu
  */
-public class AgentBehaviour extends Behaviour {
+public class AgentCommunicationBehaviour extends Behaviour {
     private int step = 0;
     private boolean finish = false;
     
@@ -29,7 +29,7 @@ public class AgentBehaviour extends Behaviour {
                 // Inicio de la conversacion con santa
                 
                 // Obtenemos del agente el aid de santa
-                String santaAID = ((Agent203_P3) this.myAgent).getSantaAID();
+                String santaAID = ((Agent203) this.myAgent).getSantaAID();
                 
                 ACLMessage msg = new ACLMessage(ACLMessage.PROPOSE);
                 msg.addReceiver(new AID(santaAID, AID.ISLOCALNAME));
@@ -49,7 +49,7 @@ public class AgentBehaviour extends Behaviour {
                     
                     // Obtenemos el codigo secreto del content
                     String secretCode = msg.getContent();
-                    ((Agent203_P3) this.myAgent).setSecretConversationID(secretCode);
+                    ((Agent203) this.myAgent).setSecretConversationID(secretCode);
                     
                     // Guardamos el canal de comunicación con Santa para el final de la misión
                     santaChannelRef = msg;
@@ -68,8 +68,8 @@ public class AgentBehaviour extends Behaviour {
                 // Inicio de la conversacion con rudolf
                 
                 // Obtenemos el AID de rudolf del agente
-                String rudolfAID = ((Agent203_P3) this.myAgent).getRudolfAID();
-                String secretCode = ((Agent203_P3) this.myAgent).getSecretConversationID();
+                String rudolfAID = ((Agent203) this.myAgent).getRudolfAID();
+                String secretCode = ((Agent203) this.myAgent).getSecretConversationID();
                 
                 ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
                 msg.addReceiver(new AID(rudolfAID, AID.ISLOCALNAME));
