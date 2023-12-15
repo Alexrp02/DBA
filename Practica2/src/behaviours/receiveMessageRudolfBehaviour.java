@@ -53,12 +53,12 @@ public class receiveMessageRudolfBehaviour extends Behaviour{
                         ((Rudolf)this.myAgent).reindeerPositions.remove(0);
                      
                         
-                        replay.setContent(reindeerPosition.i+","+reindeerPosition.j);
+                        replay.setContent("coordenadas:"+reindeerPosition.i+","+reindeerPosition.j);
                         this.myAgent.send(replay);
                         this.step = 0;
                         
                     }else{
-                        replay.setContent("");
+                        replay.setContent("No hay más renos");
                         this.myAgent.send(replay);
                         this.finish = true;
                     }
