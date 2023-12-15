@@ -19,7 +19,7 @@ public class checkGoalBehaviour extends Behaviour {
 
     @Override
     public boolean done() {
-        System.out.println("Comprobando goal----------------------------");
+       
         boolean end
                 = ((Agent203) this.myAgent).getEnvironment().getCurrentPosition().equals(
                         ((Agent203) this.myAgent).getEnvironment().getGoalPosition()

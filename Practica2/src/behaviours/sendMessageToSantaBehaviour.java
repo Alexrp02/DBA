@@ -73,6 +73,7 @@ public class sendMessageToSantaBehaviour extends Behaviour{
                  if (msg.getConversationId().equals(CONVERSATION_ID) &&
                     msg.getPerformative() == ACLMessage.INFORM){
                       System.out.println("Agent receive: " + msg.getContent());
+                      ((Agent203) myAgent).getEnvironment().addAgentMessage("Agent receive: " + msg.getContent());
                       
                       this.finish = true;
                  }

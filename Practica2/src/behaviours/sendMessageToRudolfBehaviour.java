@@ -54,8 +54,10 @@ public class sendMessageToRudolfBehaviour extends Behaviour{
                     ((Agent203) myAgent).getEnvironment().addAgentMessage("Agent receive: " + msg.getContent());
                     String content = msg.getContent();
                     
-                    if(!content.equals("")){
-                        String[] coordinatesArray = content.split(",");
+                    String[] contenidoArray = content.split(":");
+                    if(contenidoArray[0].equals("coordenadas")){
+                        
+                        String[] coordinatesArray = contenidoArray[1].split(",");
 
                         Point2D goalPosition = new Point2D(
                                 Integer.parseInt(coordinatesArray[0].trim()),
