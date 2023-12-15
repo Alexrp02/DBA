@@ -59,6 +59,10 @@ public class Environment {
         this.see();
     }
     
+    public Map getMap() {
+        return map ;
+    }
+    
     // ¿¿Cómo se ve el mundo??
     public void see() {
         

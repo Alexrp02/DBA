@@ -45,7 +45,7 @@ public class Main {
 
         List<Point2D> agentPath = new ArrayList<>();
         Environment environment = new Environment(mapPath, initialPosition, agentPath);
-        Object[] agentArgs = new Object[2] ;
+        Object[] agentArgs = new Object[3] ;
         agentArgs[0] = environment ;
         agentArgs[1] = agentPath;
 
