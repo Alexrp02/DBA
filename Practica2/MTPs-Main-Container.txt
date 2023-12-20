@@ -1,1 +1,1 @@
-http://VirtualBox-Ubuntu22:7778/acc
+http://archlinux:7778/acc

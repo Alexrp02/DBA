@@ -16,27 +16,29 @@ import jade.core.AID;
  * @author manu
  */
 public class AgentCommunicationBehaviour extends Behaviour {
+
     private int step = 0;
     private boolean finish = false;
-    
-    private ACLMessage rudolfChannelRef;    
-    private ACLMessage santaChannelRef;    
-    
+
+    private ACLMessage rudolfChannelRef;
+    private ACLMessage santaChannelRef;
+
     @Override
     public void action() {
-        
-        if( !((Agent203)myAgent).isMovement() ) {
+
+        if (!((Agent203) myAgent).isMovement()) {
             switch (this.step) {
                 case 0 -> {
 
                     // Inicio de la conversacion con santa
-
                     // Obtenemos del agente el aid de santa
                     String santaAID = ((Agent203) this.myAgent).getSantaAID();
 
                     ACLMessage msg = new ACLMessage(ACLMessage.PROPOSE);
                     msg.addReceiver(new AID(santaAID, AID.ISLOCALNAME));
                     msg.setContent("¿Puedo ayudarte a encontrar tus renos?");
+                    ((Agent203) this.myAgent).getEnvironment().addAgentMessage("¿Puedo ayudarte a encontrar tus renos?");
+
                     myAgent.send(msg);
                     this.step = 1;
                 }
@@ -60,8 +62,9 @@ public class AgentCommunicationBehaviour extends Behaviour {
                         // Pasamos a la comunicación con Rudolf (step = 2)
                         this.step = 2;
 
-                    } else if(msg.getPerformative() == ACLMessage.REJECT_PROPOSAL) {
+                    } else if (msg.getPerformative() == ACLMessage.REJECT_PROPOSAL) {
                         System.out.println("Santa no me quiere");
+                        ((Agent203) this.myAgent).getEnvironment().addAgentMessage("Santa no me quiere :(");
                     } else {
                         System.out.println("Error");
                     }
@@ -96,11 +99,11 @@ public class AgentCommunicationBehaviour extends Behaviour {
                         // Pasamos a pedirle las coordenadas de los renos en el siguiente paso
                         ACLMessage reply = rudolfChannelRef.createReply(ACLMessage.REQUEST);
                         reply.setContent("¿Coordenadas?");
+                        ((Agent203) this.myAgent).getEnvironment().addAgentMessage("Dame las coordenadas Rudolph.");
                         myAgent.send(reply);
                         this.step = 4;
 
-
-                    } else if(msg.getPerformative() == ACLMessage.REFUSE) {
+                    } else if (msg.getPerformative() == ACLMessage.REFUSE) {
 
                         System.out.println("Agent: Rudolf ha rechazado nuestro request");
                         myAgent.doDelete();
@@ -109,7 +112,7 @@ public class AgentCommunicationBehaviour extends Behaviour {
                         // Error, terminamos la ejecucion
                         System.out.println("Agent: Error in the coversation protocol - step" + step);
                         myAgent.doDelete();
-                    }              
+                    }
                 }
 
                 case 10 -> { // Pedir coordenadas a rudolf
@@ -121,34 +124,35 @@ public class AgentCommunicationBehaviour extends Behaviour {
                     ACLMessage reply = rudolfChannelRef.createReply(ACLMessage.REQUEST);
                     reply.setContent("¿Coordenadas?");
                     myAgent.send(reply);
-                    this.step=4;
+                    this.step = 4;
                 }
                 case 4 -> {
                     // Recibimos la respuesta al request de posicion reno
                     ACLMessage msg = myAgent.blockingReceive();
                     System.out.println(msg);
 
-                    if(msg.getPerformative() == ACLMessage.INFORM) {
+                    if (msg.getPerformative() == ACLMessage.INFORM) {
                         // Procesamos el punto
                         String content = msg.getContent();
                         Point2D objetivo = Point2D.fromString(content);
 
-
-                        System.out.println("Llendo al objetivo... " + objetivo.toString());
+                        System.out.println("Yendo al objetivo... " + objetivo.toString());
+                        ((Agent203) this.myAgent).getEnvironment().addAgentMessage("Yendo a por el reno en la posición " + objetivo.toString());
                         ((Agent203) myAgent).setGoalPosition(objetivo);
                         ((Agent203) myAgent).setMovement(true);
                         this.step = 10;
 
-                    } else if(msg.getPerformative() == ACLMessage.FAILURE) {
+                    } else if (msg.getPerformative() == ACLMessage.FAILURE) {
                         System.out.println("Agent: Ya tengo todos los renos, procedo a comunicarme con SANTA HO,HO,HO");
                         System.out.println("Agent: Vuelvo a comunicarme con Santa");
+                        ((Agent203) this.myAgent).getEnvironment().addAgentMessage("Ya he conseguido todos los renos, se lo voy a comentar a Santa.");
                         this.step = 5;
 
                     } else {
                         // Error, terminamos la ejecucion
                         System.out.println("Agent: Error in the coversation protocol - step" + step);
                         myAgent.doDelete();
-                    }               
+                    }
                 }
 
                 case 5 -> { // Vuelta a la comunicación con Santa
@@ -166,7 +170,7 @@ public class AgentCommunicationBehaviour extends Behaviour {
                     ACLMessage msg = myAgent.blockingReceive();
                     System.out.println(msg);
 
-                    if(msg.getPerformative() == ACLMessage.INFORM) {
+                    if (msg.getPerformative() == ACLMessage.INFORM) {
                         // Procesamos el punto
                         String content = msg.getContent();
                         Point2D objetivo = Point2D.fromString(content);
@@ -179,9 +183,8 @@ public class AgentCommunicationBehaviour extends Behaviour {
                         System.out.println("Error en el protocolo");
                         myAgent.doDelete();
                     }
-
                 }
-                
+
                 case 11 -> {
                     Point2D objetivo = ((Agent203) myAgent).getEnvironment().getGoalPosition();
 
@@ -199,8 +202,9 @@ public class AgentCommunicationBehaviour extends Behaviour {
                     ACLMessage msg = myAgent.blockingReceive();
                     System.out.println(msg);
 
-                    if(msg.getPerformative() == ACLMessage.INFORM) {                    
+                    if (msg.getPerformative() == ACLMessage.INFORM) {
                         System.out.println("Mision cumplida");
+                        ((Agent203) this.myAgent).getEnvironment().addAgentMessage("Misión cumplida!");
                         finish = true;
                     } else {
                         System.out.println("Error en el protocolo");
@@ -210,7 +214,7 @@ public class AgentCommunicationBehaviour extends Behaviour {
 
                 }
             }
-            
+
         }
     }
 
@@ -218,5 +222,5 @@ public class AgentCommunicationBehaviour extends Behaviour {
     public boolean done() {
         return finish;
     }
-    
+
 }
